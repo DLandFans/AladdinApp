@@ -1,5 +1,11 @@
 <?php
 
+//Load Composer Packages
+require_once __DIR__ . '/vendor/autoload.php';
+
+
+//Load Config Settings
+requite_once __DIR__ . "/config/config.php";
 
 if (!isset($_GET['id'])) {
     header("Location: /estimates/index.php");
