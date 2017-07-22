@@ -8,14 +8,17 @@ class AladdinRoofingApp {
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->recId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+        $this->recCode = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+
         
         switch ($this->method) {
             case "POST":
 //                $this->type = $_POST['page'];
                 break;
             case "GET":
-                $this->recId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
-                $this->recCode = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+//                $this->recId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+//                $this->recCode = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
                 break;
             default:
                 $this->type = null;
@@ -24,12 +27,10 @@ class AladdinRoofingApp {
     
     public function displayEstimate()
     {
-        $knack = new Knack(KNACK_ID, KNACK_KEY, KNACK_URL);
-        //$id = $knack->getID(T_ESTIMATES, $this->recId);
-        if(!$id = $knack->getID(T_ESTIMATES, $this->recId)) return false;
+        if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
 
+        $estimate = new Estimate(Knack::getObject(T_ESTIMATES, $id));
 
-        $estimate = $knack->getObject(T_ESTIMATES, $id);
         var_dump($estimate);
         exit;
         
@@ -39,8 +40,7 @@ class AladdinRoofingApp {
     
     public function displayEmail() 
     {
-        $knack = new Knack(KNACK_ID, KNACK_KEY, KNACK_URL);
-        if(!$id = $knack->getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
+        if(!$id = Knack::getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
         
         $html = "Doing Email with id " . $id;
         return $html;
