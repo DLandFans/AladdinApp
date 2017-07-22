@@ -5,15 +5,17 @@ if (!include_once("load.php")) die("Initialization not complete!");
 
 $app = new AladdinRoofingApp();
 
-
-
 if (isset($app->recCode)) {
-    echo "Doing Email with id " . $app->recId . " and vaildation code " . $app->recCode;
-    exit();
-}
-if (isset($app->recId)) {
-    echo "Doing report with id " . $app->recId;
-    exit();
+    $html = $app->displayEmail();
+} elseif (isset($app->recId)) {
+    $html = $app->displayEstimate();
+} else {
+    header("Location: /estimates/index.php");    
 }
 
-header("Location: /estimates/index.php");
+if($html) {
+    echo $html;
+} else {
+    header("Location: /estimates/index.php");    
+}
+
