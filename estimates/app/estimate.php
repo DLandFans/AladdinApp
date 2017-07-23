@@ -10,7 +10,7 @@ if (isset($app->recCode)) {
 } elseif (isset($app->recId)) {
     $html = $app->displayEstimate();
 } else {
-    header("Location: /estimates/index.php");    
+//    header("Location: /estimates/index.php");    
 }
 
 if($html) {
