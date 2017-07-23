@@ -2,7 +2,7 @@
 
 class Estimate {
     
-    private $id;
+    public $id;
     public $jobName;
     public $status;
 
@@ -36,9 +36,9 @@ class Estimate {
     
     public $images;
     
-    private $internalCount;
-    private $internalId;
-    private $validationCode;
+    public $internalCount;
+    public $internalId;
+    public $validationCode;
     
     public function __construct($id) {
         $estimate = Knack::getObject(T_ESTIMATES, $id);

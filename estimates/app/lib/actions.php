@@ -34,6 +34,8 @@ class Action {
 
 
     public static function displayEmail(Estimate $estimate, $emails) {
+        $_SESSION['emails'] = $emails;
+        $_SESSION['estimate'] = self::buildEstimateArray($estimate); 
         $html = '
             <!doctype html>
 
@@ -55,12 +57,45 @@ class Action {
             <body>
             <h1>' . $estimate->jobName . '</h1>
             <h2>Send Emails</h2>
+
+
+            <form action="' . BASE_URL . $estimate->internalId . '/' . $estimate->validationCode . '" method="POST" id="form1">
+        ';
+
+        $count = 0;
+        foreach($emails as $email) {
+            $html .= $email['name'] . ' <input type="checkbox" name="emailList[' . $count . ']" value="true" checked><br>';
+            $count++;
+        }
+        
+        
+                
+                
+        $html .= '
+            <input type="submit" form="form1" value="Submit">
+            <form>
+
             </body>
             </html>
         
         ';
         
         return $html;
+    }
+    
+    
+    
+    private static function buildEstimateArray(Estimate $estimate)
+    {
+        return array(
+            'jobName' => $estimate->jobName,
+            'street1' => $estimate->street1,
+            'street2' => $estimate->street2,
+            'city' => $estimate->city,
+            'state' => $estimate->state,
+            'zip' => $estimate->zip
+        );
+        
     }
     
     

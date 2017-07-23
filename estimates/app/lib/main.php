@@ -30,13 +30,22 @@ class AladdinRoofingApp {
 
             $estimate = new Estimate($id);
             $emails = Email::prepareEmails($estimate);
-
-            return Action::displayEmail($estimate, $emails);
+            return Action::displayEmail($estimate,$emails);
         }
 
         //Do POST
+        $emails = $_SESSION['emails'];
+        $estimate = $_SESSION['estimate'];
         
-        $html = "Doing Post";
+        $emailList = filter_input(INPUT_POST, 'emailList', FILTER_VALIDATE_BOOLEAN, FILTER_REQUIRE_ARRAY);
+        
+        foreach($emailList as $id=>$value) 
+        {
+            $html .= $emails[$id]['name'] . " &lt;" . $emails[$id]['email'] . "&gt;<br>";
+        }
+        
+        $html .= '<br><br><a href="' . BASE_URL . $this->recId . '">View Estimate for ' . $estimate['jobName'] . '</a>';
+        
         return $html;
         
     }
