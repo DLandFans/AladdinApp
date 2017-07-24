@@ -6,9 +6,9 @@ if (!include_once("load.php")) die("Initialization not complete!");
 $app = new AladdinRoofingApp();
 
 if (isset($app->recCode)) {
-    $html = $app->displayEmail();
+    $html = $app->doEmail();
 } elseif (isset($app->recId)) {
-    $html = $app->displayEstimate();
+    $html = $app->doEstimate();
 } else {
     header("Location: /estimates/index.php");    
 }

@@ -12,42 +12,45 @@ class AladdinRoofingApp {
         $this->recCode = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
     }
     
-    public function displayEstimate()
+    public function doEstimate()
     {
         if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
-
-        $estimate = new Estimate($id);
-        var_dump($estimate);
-        exit;
-        
-        return Display::estimate($estimate);
+        return Display::estimate(new Estimate($id));
     }
     
-    public function displayEmail() 
+    public function doEmail() 
     {
+        
+        Email::sendEmails($sendEmails);
+        exit;
+        
         //Do GET
         if($this->method == "GET") {
             if(!$id = Knack::getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
 
             $estimate = new Estimate($id);
             $emails = Email::prepareEmails($estimate);
-            return Display::email($estimate,$emails);
+            return Display::emailChoose($estimate,$emails);
         }
 
         //Do POST
         $emails = $_SESSION['emails'];
-        $estimate = $_SESSION['estimate'];
-        
         $emailList = filter_input(INPUT_POST, 'emailList', FILTER_VALIDATE_BOOLEAN, FILTER_REQUIRE_ARRAY);
         
-        foreach($emailList as $id=>$value) 
-        {
-            $html .= $emails[$id]['name'] . " &lt;" . $emails[$id]['email'] . "&gt;<br>";
+        
+        $sendEmails = array();
+        
+        if(count($emailList)>0) {
+            foreach($emailList as $id=>$value) {
+                $sendEmails[] = array(
+                    'name' => $emails[$id]['name'],
+                    'email' => $emails[$id]['email'],
+                    'type' => $emails[$id]['type']
+                );
+            } 
         }
         
-        $html .= '<br><br><a href="' . BASE_URL . $this->recId . '">View Estimate for ' . $estimate['jobName'] . '</a>';
-        
-        return $html;
+        return Display::emailSent(Email::sendEmails($sendEmails)); 
         
     }
     

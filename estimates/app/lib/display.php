@@ -33,7 +33,7 @@ class Display {
     }
 
 
-    public static function email(Estimate $estimate, $emails) {
+    public static function emailChoose(Estimate $estimate, $emails) {
         $_SESSION['emails'] = $emails;
         $_SESSION['estimate'] = self::buildEstimateArray($estimate); 
         $html = '
@@ -84,6 +84,56 @@ class Display {
     }
     
     
+    public static function emailSent($results=null) {
+        $estimate = $_SESSION['estimate'];
+        $html = '
+            <!doctype html>
+
+            <html lang="en">
+            <head>
+              <meta charset="utf-8">
+
+              <title>Aladdin Roofing Estimate - ' . $estimate['jobname'] . '</title>
+              <meta name="description" content="Aladdin Estimating App">
+              <meta name="author" content="Todd Tamcsin Photography">
+
+              <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
+
+              <!--[if lt IE 9]>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+              <![endif]-->
+
+            </head>
+            <body>
+            <h1>' . $estimate['jobName'] . '</h1>
+            <h2>Emails Sent</h2>
+            To view the estimate now <a href="'. BASE_URL . $estimate['id'] . '">click here</a> 
+                <br>
+
+';
+
+        
+        if($results) {
+            $html .= "<br>Emails sent to:<br>";
+            foreach($results as $result)
+            {
+                $html .= $result['name'] . " (" . $result['type'] . ") at " . $result['email'] . "<br>"; 
+            }
+        } else {
+            $html .= "No emails sent since no emails were selected.";
+        }
+
+        
+        
+$html .= '</body>
+            </html>
+        
+        ';
+        
+        return $html;
+
+    }
+    
     
     private static function buildEstimateArray(Estimate $estimate)
     {
@@ -93,7 +143,9 @@ class Display {
             'street2' => $estimate->street2,
             'city' => $estimate->city,
             'state' => $estimate->state,
-            'zip' => $estimate->zip
+            'zip' => $estimate->zip,
+            'id' => $estimate->internalId,
+            'code' => $estimate->validationCode
         );
         
     }
