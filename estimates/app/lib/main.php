@@ -14,12 +14,12 @@ class AladdinRoofingApp {
     
     public function displayEstimate()
     {
-
         if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
 
         $estimate = new Estimate($id);
         var_dump($estimate);
         exit;
+        
         return Display::estimate($estimate);
     }
     

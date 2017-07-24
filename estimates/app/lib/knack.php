@@ -14,17 +14,19 @@ class Knack {
         //Field_109 = Verification Code
         
         if(!isset($code)) {
-            $filters = '{"match":"and","rules":[{"field":"field_110_raw","operator":"is","value":"' . $id . '"}]}';
+//            $filters = '{"match":"and","rules":[{"field":"field_110_raw","operator":"is","value":"' . $id . '"}]}';
+            $filters = '{"match":"and","rules":[{"field":"field_110","operator":"is","value":"' . $id . '"}]}';
         } else {
-            $filters = '{"match":"and","rules":[{"field":"field_110_raw","operator":"is","value":"' . $id . '"},{"field":"field_109_raw","operator":"is","value":"' . $code . '"}]}';
+//            $filters = '{"match":"and","rules":[{"field":"field_110_raw","operator":"is","value":"' . $id . '"},{"field":"field_109_raw","operator":"is","value":"' . $code . '"}]}';
+            $filters = '{"match":"and","rules":[{"field":"field_110","operator":"is","value":"' . $id . '"},{"field":"field_109","operator":"is","value":"' . $code . '"}]}';
         }
-
+        
         // with child records will need to use
         // . '&rows_per_page=1000';
         
         $apiUrl .= '?filters=' . urlencode($filters);
         $find = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
-       
+      
         if (isset($find->records[0])) {
             return $find->records[0]->id;
         }
@@ -78,13 +80,14 @@ class Knack {
             if ($admin->field_114_raw) {
                 $email_adm[] = array(
                     'name'=>$admin->field_14,
-                    'email'=>$admin->field_15_raw->email
+                    'email'=>$admin->field_15_raw->email,
+                    'type'=>'Aladdin Corporate'
                 );
             }
         }
         return $email_adm;
     }
-    
+   
 }
 
 

@@ -64,7 +64,7 @@ class Display {
 
         $count = 0;
         foreach($emails as $email) {
-            $html .= $email['name'] . ' <input type="checkbox" name="emailList[' . $count . ']" value="true" checked><br>';
+            $html .= $email['name'] . ' ('. $email['type'] .') ' . ' <input type="checkbox" name="emailList[' . $count . ']" value="true" checked><br>';
             $count++;
         }
         
