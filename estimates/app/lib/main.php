@@ -18,8 +18,9 @@ class AladdinRoofingApp {
         if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
 
         $estimate = new Estimate($id);
-        
-        return Action::displayEstimate($estimate);
+        var_dump($estimate);
+        exit;
+        return Display::estimate($estimate);
     }
     
     public function displayEmail() 
@@ -30,7 +31,7 @@ class AladdinRoofingApp {
 
             $estimate = new Estimate($id);
             $emails = Email::prepareEmails($estimate);
-            return Action::displayEmail($estimate,$emails);
+            return Display::email($estimate,$emails);
         }
 
         //Do POST

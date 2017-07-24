@@ -82,9 +82,7 @@ class Knack {
                 );
             }
         }
-        
         return $email_adm;
-        
     }
     
 }

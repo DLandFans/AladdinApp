@@ -11,7 +11,7 @@ if(!require_once(__DIR__ . '/lib/contacts.php')) die("Contacts class couldn't be
 if(!require_once(__DIR__ . '/lib/images.php')) die("Images class couldn't be loaded.");
 
 if(!require_once(__DIR__ . "/lib/main.php")) die("Main library couldn't be loaded");
-if(!require_once(__DIR__ . "/lib/actions.php")) die("Actions couldn't be loaded");
+if(!require_once(__DIR__ . "/lib/display.php")) die("Display couldn't be loaded");
 if(!require_once(__DIR__ . '/lib/emails.php')) die("Email class couldn't be loaded.");
 
 

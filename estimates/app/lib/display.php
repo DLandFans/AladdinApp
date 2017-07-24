@@ -1,8 +1,8 @@
 <?php
 
-class Action {
+class Display {
     
-    public static function displayEstimate(Estimate $estimate) {
+    public static function estimate(Estimate $estimate) {
         $html = '
             <!doctype html>
 
@@ -33,7 +33,7 @@ class Action {
     }
 
 
-    public static function displayEmail(Estimate $estimate, $emails) {
+    public static function email(Estimate $estimate, $emails) {
         $_SESSION['emails'] = $emails;
         $_SESSION['estimate'] = self::buildEstimateArray($estimate); 
         $html = '
