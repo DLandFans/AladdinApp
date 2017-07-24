@@ -1,8 +1,8 @@
 .htaccess
 estimates/app/vendor/
-estimates/app/config/
+estimates/app/config/defaults.php
 /nbproject/private/
-
+/workingfiles
 
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
