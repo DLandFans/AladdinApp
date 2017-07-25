@@ -20,10 +20,7 @@ class AladdinRoofingApp {
     
     public function doEmail() 
     {
-        
-        Email::sendEmails($sendEmails);
-        exit;
-        
+         
         //Do GET
         if($this->method == "GET") {
             if(!$id = Knack::getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
@@ -36,7 +33,7 @@ class AladdinRoofingApp {
         //Do POST
         $emails = $_SESSION['emails'];
         $emailList = filter_input(INPUT_POST, 'emailList', FILTER_VALIDATE_BOOLEAN, FILTER_REQUIRE_ARRAY);
-        
+        $estimateArray = $_SESSION['estimateArray'];
         
         $sendEmails = array();
         
@@ -50,7 +47,8 @@ class AladdinRoofingApp {
             } 
         }
         
-        return Display::emailSent(Email::sendEmails($sendEmails)); 
+        $result = Email::sendEmails($sendEmails,$estimateArray);
+        return Display::emailSent($result,$estimateArray); 
         
     }
     

@@ -81,7 +81,7 @@ class Knack {
                 $email_adm[] = array(
                     'name'=>$admin->field_14,
                     'email'=>$admin->field_15_raw->email,
-                    'type'=>'Aladdin Corporate'
+                    'type'=>CORPORATE_TYPE
                 );
             }
         }

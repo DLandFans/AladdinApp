@@ -35,7 +35,7 @@ class Display {
 
     public static function emailChoose(Estimate $estimate, $emails) {
         $_SESSION['emails'] = $emails;
-        $_SESSION['estimate'] = self::buildEstimateArray($estimate); 
+        $_SESSION['estimateArray'] = self::buildEstimateArray($estimate); 
         $html = '
             <!doctype html>
 
@@ -84,8 +84,7 @@ class Display {
     }
     
     
-    public static function emailSent($results=null) {
-        $estimate = $_SESSION['estimate'];
+    public static function emailSent($results, $estimateArray) {
         $html = '
             <!doctype html>
 
@@ -93,7 +92,7 @@ class Display {
             <head>
               <meta charset="utf-8">
 
-              <title>Aladdin Roofing Estimate - ' . $estimate['jobname'] . '</title>
+              <title>Aladdin Roofing Estimate - ' . $estimateArray['jobname'] . '</title>
               <meta name="description" content="Aladdin Estimating App">
               <meta name="author" content="Todd Tamcsin Photography">
 
@@ -105,9 +104,9 @@ class Display {
 
             </head>
             <body>
-            <h1>' . $estimate['jobName'] . '</h1>
+            <h1>Job - ' . $estimateArray['jobName'] . '</h1>
             <h2>Emails Sent</h2>
-            To view the estimate now <a href="'. BASE_URL . $estimate['id'] . '">click here</a> 
+            To view the estimate now <a href="'. BASE_URL . $estimateArray['id'] . '">click here</a> 
                 <br>
 
 ';
