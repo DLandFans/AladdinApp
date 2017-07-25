@@ -102,6 +102,11 @@ section .title {
     font-style: italic;
 }
 .notes .data {
+    font-size: 18px;
+    font-weight: normal;
+    font-style: italic;
+    padding-bottom: 20px;
+
 }
 
 .ref-image {

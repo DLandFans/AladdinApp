@@ -34,7 +34,10 @@ section .title {
 }
 
 .notes .data{
-    font-size: .9em;
+    font-size: 1.2em;
+    font-weight: normal;
+    font-style: italic;
+    padding-bottom: 20px;
 }
 
 .img-desc {
