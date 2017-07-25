@@ -10,7 +10,7 @@ class Display {
             <head>
               <meta charset="utf-8">
 
-              <title>Aladdin Roofing Estimate - ' . $estimate->jobName . '</title>
+              <title>Aladdin Roofing Estimate for ' . $estimate->jobName . '</title>
               <meta name="description" content="Aladdin Estimating App">
               <meta name="author" content="Todd Tamcsin Photography">
 
@@ -28,6 +28,9 @@ class Display {
             </html>
         
         ';
+        
+        echo '<pre>' . var_export($estimate, true) . '</pre>';
+        
         
         return $html;
     }

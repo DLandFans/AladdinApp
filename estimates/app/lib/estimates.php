@@ -19,6 +19,7 @@ class Estimate {
     public $estimatedCost;
     public $estimator;
     public $estimatorEmail;
+    public $dateEstimated;
     public $estimatorId;
     public $dateCreated;
 
@@ -165,15 +166,20 @@ class Estimate {
         $this->interiorConditionsChecklist['interiorStaining'] = $estimate->field_151_raw;
 
         $this->interiorConditionNotes = $estimate->field_86_raw;
-        
-//40 and 93 images, contacts
-        
+       
         $this->internalCount = $estimate->field_99_raw;
         $this->dateCreated['full'] = $estimate->field_105;
         $this->dateCreated['date'] = $estimate->field_105_raw->date;
         $this->dateCreated['hour'] = $estimate->field_105_raw->hours;
         $this->dateCreated['min'] = $estimate->field_105_raw->minutes;
         $this->dateCreated['ampm'] = $estimate->field_105_raw->am_pm;
+
+        $this->dateEstimated['full'] = $estimate->field_152;
+        $this->dateEstimated['date'] = $estimate->field_152_raw->date;
+        $this->dateEstimated['hour'] = $estimate->field_152_raw->hours;
+        $this->dateEstimated['min'] = $estimate->field_152_raw->minutes;
+        $this->dateEstimated['ampm'] = $estimate->field_152_raw->am_pm;
+
         
         $this->internalId = $estimate->field_110_raw;
         $this->validationCode = $estimate->field_109_raw;

@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#page, header, section, footer { 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bgfilled {
+    position: relative;
+    width: 100%;
+}
+
+.bgfilled > img {
+    width: 100%;
+}
+
+.bgfilled > div { 
+    position: absolute;
+    top: 0;
+    left:0;
+    color: #FFF;
+}
+
+header .title img,
+header .title div {
+    display: inline;
+    float:left;
+}
+
+header, section, footer {
+    border-left: 2px solid #861B2F;
+    border-right: 2px solid #861B2F;
+}
+
+section .bgfilled {
+    border-top: 2px solid #861B2F;
+    border-bottom: 2px solid #861B2F;
+}
+
+section .title {
+    padding: 5px 0 0 10px;
+    font-weight: bold;
+    color:#861B2F;
+/*    color:#FFFFFF; */
+
+}
+
+.content {
+    padding: 5px;
+}
+
+.label, .data {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 115%;
+    padding: 3px 0;
+}
+   
+
+.data {
+    font-weight: bold;
+}
+
+.important {
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.cost { padding-top: 25px;}
+
+.contact {
+    width: 49%;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+
+.job-information {
+    vertical-align: top;
+    width: 60%;
+    display: inline-block;
+}
+
+.roof-type {
+    vertical-align: top;
+    width: 39%;
+    display: inline-block;
+}
+
+.notes .label {
+   width: 100%;
+}
+
+.notes .label {
+    padding-bottom: 0px;
+    border-bottom: 1px solid #861B2F;
+    font-style: italic;
+}
+.notes .data {
+}
+
+.ref-image {
+    width: 48%; 
+    display: inline-block;
+    padding: 5px 4px 10px 3px;
+}
+
+.ref-image img {
+    width : 100%;
+}
+
+
+.inspection-list {
+    margin: 0 15%;
+}
+
+.inspection-point {
+    display: inline-block;
+    vertical-align:middle; 
+    padding: 3px 0;
+    width: 40%;
+}
+.inspected, .deficiency {
+    display: inline-block;
+    vertical-align:middle; 
+    padding: 3px 0;
+    width: 25%;
+    text-align: center;
+}
+
+
+
+.inspected img, .deficiency img { width: 35px; }
+.img-desc, .img-class { text-align: center; }
+
+.inspection-point {
+    font-size: 18px;
+    font-style: italic;
+}
+
+
+.inspection-list .labels {
+    font-size:24px;
+    font-weight: bold;
+    font-style: inherit;
+}
+
+.address {
+    padding-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.phone {
+    font-size: 14px;
+}
+
+.ROC, .copyright {
+    font-size: 8px;
+}
+
+
+/* Fixed Heights */
+.fh40 { height: 40px; }
+.fh50 { height: 50px; }
+.fh100 { height: 100px; }
+.fh150 { height: 150px; }
+.fh200 { height: 200px; }
+.fh250 { height: 250px; }
+
+
+
+
+
+
