@@ -10,11 +10,12 @@ class Display {
     <head>
         <title>Aladdin Roofing Estimate for ' . $estimate->jobName . '</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Aladdin Roofing Estimate">
-        <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css">
-        <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Aladdin Roofing Estimate" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
+        <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
     </head>
     <body>
         <div id="instructions" class="screen">Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.</div>
@@ -144,7 +145,6 @@ class Display {
         return $html;
     }
 
-
     public static function emailChoose(Estimate $estimate, $emails) {
         $_SESSION['emails'] = $emails;
         $_SESSION['estimateArray'] = self::buildEstimateArray($estimate); 
@@ -158,7 +158,7 @@ class Display {
               <title>Aladdin Roofing Estimate - ' . $estimate->jobName . '</title>
               <meta name="description" content="Aladdin Estimating App">
               <meta name="author" content="Todd Tamcsin Photography">
-
+              <meta name="robots" content="noindex, nofollow" />
               <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
 
               <!--[if lt IE 9]>
@@ -170,7 +170,6 @@ class Display {
             <h1>' . $estimate->jobName . '</h1>
             <h2>Send Emails</h2>
 
-
             <form action="' . BASE_URL . $estimate->internalId . '/' . $estimate->validationCode . '" method="POST" id="form1">
         ';
 
@@ -179,9 +178,6 @@ class Display {
             $html .= $email['name'] . ' ('. $email['type'] .') ' . ' <input type="checkbox" name="emailList[' . $count . ']" value="true" checked><br>';
             $count++;
         }
-        
-        
-                
                 
         $html .= '
             <input type="submit" form="form1" value="Submit">
@@ -191,10 +187,8 @@ class Display {
             </html>
         
         ';
-        
         return $html;
     }
-    
     
     public static function emailSent($results, $estimateArray) {
         $html = '
@@ -207,6 +201,7 @@ class Display {
               <title>Aladdin Roofing Estimate - ' . $estimateArray['jobname'] . '</title>
               <meta name="description" content="Aladdin Estimating App">
               <meta name="author" content="Todd Tamcsin Photography">
+              <meta name="robots" content="noindex, nofollow" />
 
               <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
 
@@ -220,8 +215,7 @@ class Display {
             <h2>Emails Sent</h2>
             To view the estimate now <a href="'. BASE_URL . $estimateArray['id'] . '">click here</a> 
                 <br>
-
-';
+        ';
 
         
         if($results) {
@@ -236,15 +230,12 @@ class Display {
 
         
         
-$html .= '</body>
+        $html .= '</body>
             </html>
         
         ';
-        
         return $html;
-
     }
-    
     
     private static function buildEstimateArray(Estimate $estimate)
     {
@@ -258,10 +249,7 @@ $html .= '</body>
             'id' => $estimate->internalId,
             'code' => $estimate->validationCode
         );
-        
     }
-
-
 
     private static function buildChecklist($labels,$checklist,$deficiency){
         
@@ -282,10 +270,6 @@ $html .= '</body>
         if($inner_html) { return '<div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Inspected</div><div class="deficiency labels">Deficiency</div></div>' . $inner_html; }
         return;
     }
-
-    
-    
-    
     
     private static function buildImageDisplay($images,$labels) {
         
@@ -324,9 +308,6 @@ $html .= '</body>
         }
         return;
    }
-
-
-
     
    public static function buildSection($section, $images) {
        
@@ -340,10 +321,7 @@ $html .= '</body>
                     <div class="inspection-list">';
         
         $inner_html_2 = self::buildChecklist($section['labels'], $section['checklist'], $section['deficiencies']);
-        
         $inner_html_3 = '</div>';
-
-
         $inner_html_4 = '
                     <div class="notes">
                         <div class="label">' . $section['name']['label'] . ' Notes</div>
@@ -358,85 +336,13 @@ $html .= '</body>
                         </div>
                     </div>';
 
-
-        
-        
         $inner_html_5 = self::buildImageDisplay($images, $section['labels']);
-        
         $inner_html_6 = '
                 </div>
             </section>';
         
         if(empty($inner_html_2) && empty($inner_html_5) && empty($section['name']['note'])) { return; }
-
         return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
-        
-        
    }
  
-//   public static function buildSection($section, $images) {
-//       
-//       $return = false;
-//       
-//        $inner_html .= '
-//            <section id="' . $section['name']['id'] . '">
-//                <div class="bgfilled fh40">
-//                    <img  class="fh40" src="images/bgcolor3.png">
-//                    <div class="title">' . $section['name']['label'] . 's</div>
-//                </div>
-//                <div class="content">
-//                    <div class="inspection-list">';
-//        
-//        if($val = self::buildChecklist($section['labels'], $section['checklist'], $section['deficiencies'])) { 
-//            $return = true;
-//            $inner_html .= $val;
-//        }
-//        
-//        $inner_html .= '  </div>';
-//        
-//        
-//        
-//        
-//        $inner_html .= '
-//                    <div class="notes">
-//                        <div class="label">' . $section['name']['label'] . ' Notes</div>
-//                        <div class="data">';
-//        
-//        if (!empty($section['name']['note'])) {
-//            $inner_html .= $section['name']['note'];
-//        } else {
-//            $inner_html .= 'No ' . $section['name']['label'] . ' notes for this job.';
-//        }
-//        $inner_html .= '
-//                        </div>
-//                    </div>';
-//
-//        
-//        
-//        
-//        if ($val = self::buildImageDisplay($images, $section['labels'])){
-//            $return = true;
-//            $inner_html .= $val;
-//        }
-//        
-//        
-//        
-//        
-//        
-//        $inner_html .= '
-//                </div>
-//            </section>';
-//        
-//        
-//        
-//        if ($return) return $inner_html;
-//        
-//        return;
-//        
-//   }
-
-
-
-
-   
 }
