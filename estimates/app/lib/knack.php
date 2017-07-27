@@ -87,6 +87,35 @@ class Knack {
         }
         return $email_adm;
     }
+    
+    
+    public static function getRecordsByIds($ids,$table) {
+        $apiUrl = KNACK_URL . "objects/" . $table . "/records";
+        
+        
+        $filters = '{"match":"or","rules":[';
+
+        $count=0;
+        foreach($ids as $image) {
+            if($count > 0) { $filters .= ','; }
+            $filters .= '{"field":"id","operator":"is","value":"' . $image->id . '"}';
+            $count++;
+        }
+        
+        
+        $filters .= ']}';
+
+        $apiUrl .= '?rows_per_page=1000&filters=' . urlencode($filters);
+        
+        
+        $find = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
+        
+        if ($find->total_records > 0) {
+            return $find->records;
+        }
+        return false;
+    }
+
    
 }
 

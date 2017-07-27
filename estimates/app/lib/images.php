@@ -2,7 +2,7 @@
 
 class Image {
     
-    private $id;
+    public $id;
     public $description;
     public $classification;
     public $classId;
@@ -13,21 +13,26 @@ class Image {
     public $imageUrl_1280;
     
     
-    public function __construct($id) {
-        $image = Knack::getObject(T_IMAGES, $id);
+    public function __construct($image) {
+       
+        //$image = Knack::getObject(T_IMAGES, $id);
         
         $this->id = $image->id;
         $this->description = $image->field_36_raw;
         
         $this->classification = $image->field_39_raw[0]->identifier;
         $this->classId = $image->field_39_raw[0]->id;
-        $this->classCode = Knack::getClassificationCode($this->classification);
+//        //$this->classCode = Knack::getClassificationCode($this->classification);
         
         $this->imageName = $image->field_37_raw->filename;
         $this->imageUrl = $image->field_37_raw->url;
 
         $this->imageUrl_480 = $this->stripAmazonImage($image->{'field_37:thumb_3'});
         $this->imageUrl_1280 = $this->stripAmazonImage($image->{'field_37:thumb_5'});
+
+        
+        
+
         
     }
     

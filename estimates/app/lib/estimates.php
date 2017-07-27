@@ -256,17 +256,30 @@ class Estimate {
         $this->validationCode = $estimate->field_109_raw;
 
         // Get Contacts (field_93)
-        if(isset($estimate->field_93_raw)){
-            foreach($estimate->field_93_raw as $contact) {
-                $this->contacts[] = new Contact($contact->id);
-            }
-        }
+//        if(isset($estimate->field_93_raw)){
+//            foreach($estimate->field_93_raw as $contact) {
+//                $this->contacts[] = new Contact($contact->id);
+//            }
+//        }
+        
 
         // Get Images (field_40)
+//        if(isset($estimate->field_40_raw)){
+//            foreach($estimate->field_40_raw as $image) {
+//                $this->images[] = new Image($image->id);
+//            }
+//        } 
         if(isset($estimate->field_40_raw)){
-            foreach($estimate->field_40_raw as $image) {
-                $this->images[] = new Image($image->id);
+            foreach(Knack::getRecordsByIds($estimate->field_40_raw,T_IMAGES) as $image) {
+                $this->images[] = new Image($image);
             }
-        }
+        } 
+        
+
+        
+//        echo "<pre>";
+//        var_export($estimate->field_40_raw);
+//        exit;
+        
     }
 }
