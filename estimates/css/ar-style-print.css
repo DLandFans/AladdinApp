@@ -12,9 +12,9 @@ body {
 }
 
 header .title h1 { 
-    font-size: 1.4em;
+    font-size: 3.1em;
     padding:0;
-    margin: 40px 0 0 0;
+    margin: 21px 0 0 -13px;
 }
 
 section .title {

@@ -26,6 +26,10 @@ body {
     color: #FFF;
 }
 
+header .title img {
+    height: 100px;
+}
+
 header .title img,
 header .title div {
     display: inline;
@@ -128,7 +132,7 @@ section .title {
     display: inline-block;
     vertical-align:middle; 
     padding: 3px 0;
-    width: 40%;
+    width: 45%;
 }
 .inspected, .deficiency {
     display: inline-block;
@@ -185,6 +189,7 @@ section .title {
 
 
 
+.mobileonly { display: none; }
 
 
 

@@ -1,1 +1,1 @@
-<?php header("Location: /estimates/index.php"); ?>
+<?php header("Location: http://aladdinroofing.com"); ?>

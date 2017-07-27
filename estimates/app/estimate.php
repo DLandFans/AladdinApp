@@ -10,12 +10,12 @@ if (isset($app->recCode)) {
 } elseif (isset($app->recId)) {
     $html = $app->doEstimate();
 } else {
-    header("Location: /estimates/index.php");    
+    header("Location: http://aladdinroofing.com");    
 }
 
 if($html) {
     echo $html;
 } else {
-    header("Location: /estimates/index.php");    
+    header("Location: http://aladdinroofing.com");
 }
 

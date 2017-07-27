@@ -3,6 +3,8 @@
 class Display {
     
     public static function estimate(Estimate $estimate) {
+        
+        //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
         $html = '
         
 <!DOCTYPE html>
@@ -18,7 +20,10 @@ class Display {
         <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
     </head>
     <body>
-        <div id="instructions" class="screen">Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.</div>
+        <div id="instructions" class="screen">
+            Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.<br />
+            <input type="button" onClick="window.print()" value="Print This Estimate" />
+        </div>
         <div class="print"></div>
         <div id="page">
 
@@ -26,9 +31,9 @@ class Display {
                 <div class="bgfilled fh100">
                     <img class="fh100" src="' . BASE_URL . 'images/bgcolor1.png" />
                     <div class="title">
-                        <img src="' . BASE_URL . 'images/AladdinRoofingLogo.jpg" height=100px />
+                        <img src="' . BASE_URL . 'images/AladdinRoofingLogo.jpg" />
                         <div>
-                            <h1>Estimate for ' . $estimate->jobName . '</h1>
+                            <h1 class="desktoponly">Estimate</h1>
                         </div>
                     </div>
                 </div>
@@ -267,7 +272,7 @@ class Display {
             }
         }
         
-        if($inner_html) { return '<div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Inspected</div><div class="deficiency labels">Deficiency</div></div>' . $inner_html; }
+        if($inner_html) { return '<div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Checked For:</div><div class="deficiency labels">Deficiency:</div></div>' . $inner_html; }
         return;
     }
     
@@ -345,4 +350,25 @@ class Display {
         return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
    }
  
+   private function buildHead($title) {
+       
+       $html = '
+       <!DOCTYPE html>
+
+       <html lang="en">
+    <head>
+        <title>Aladdin Roofing Estimate for ' . $title . '</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Aladdin Roofing Estimate" />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
+        <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
+    </head>
+               
+               ';
+
+   }
+   
 }

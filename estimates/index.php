@@ -18,8 +18,21 @@
         <script type="text/javascript">app_id="5963af2e76102861995ee01e";distribution_key="dist_2";</script>
         <script type="text/javascript" src="https://loader.knack.com/5963af2e76102861995ee01e/dist_2/knack.js"></script>
 
+        <script>
+            function resize_text() {
+                $("#status").html("Window-"+ $(window).width() + "px Document-" + $(document).width() + "px");
+            }
+            
+            $(document).ready(function() {
+               //$(window).on('resize', resize_text);               
+               //resize_text();
+            });
+            
+        </script>
+        
     </head>
     <body>
+        <div id="status"></div>
         <div id="main">
             <div id="knack-dist_2">Loading...</div>
         </div>

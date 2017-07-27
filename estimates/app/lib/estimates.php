@@ -150,7 +150,7 @@ class Estimate {
         $this->surfaceConditionLabel['granularLoss'] = 'Granular Loss';
         $this->surfaceConditionLabel['crackedTile'] = 'Cracked Tile';
         $this->surfaceConditionLabel['exposedUnderlayment'] = 'Exposed Underlayment';
-        $this->surfaceConditionLabel['missingMortar'] = 'Missing/Loss of Mortat';
+        $this->surfaceConditionLabel['missingMortar'] = 'Missing/Loss of Mortar';
         $this->surfaceConditionLabel['denting'] = 'Denting or Impact Marks/Dents';
         $this->surfaceConditionLabel['blistering'] = 'Blistering';
         $this->surfaceConditionLabel['ponding'] = 'Ponding';
@@ -214,7 +214,7 @@ class Estimate {
         $this->exteriorSurfaceChecklist['finish'] = $estimate->field_147_raw;
         $this->exteriorSurfaceChecklist['surface'] = $estimate->field_148_raw;
 
-        $this->exteriorSurfaceLabel['finish'] = 'Finsish';
+        $this->exteriorSurfaceLabel['finish'] = 'Finish';
         $this->exteriorSurfaceLabel['surface'] = 'Surface';
 
         $this->exteriorSurface['label']  = 'Exterior Surface';

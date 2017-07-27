@@ -13,9 +13,10 @@ body {
 }
 
 header .title h1 { 
-    font-size: 30px;
+font-size: 48px;
     padding: 0;
-    margin: 35px 0 0 10px;
+    margin: 22px 0 0 -15px;
+    font-weight: normal;
 }
 
 section .title {
@@ -39,4 +40,71 @@ section .title {
 .img-class {
     font-size: 16px;
     font-weight: bold;
+}
+
+
+@media screen and (max-width: 500px) {
+
+    
+    .desktoponly { display:none; }
+    .fh100 { height: 80px; }
+    
+    body {
+        font-size: 12px;
+        margin: 0 auto;
+        padding:0;
+    }
+
+/*    #instructions {
+        padding: 15px;
+        font-weight: bold;
+    }*/
+
+    header .title h1 { 
+        font-size: 14px;
+        padding: 0;
+        margin: 0 5px;
+    }
+    
+    
+    header .title img {
+        height: 75px;
+    }
+    
+    .job-information {
+        width: 100%;
+    }
+
+    .roof-type {
+        width: 100%;
+    }    
+    
+    .ref-image {
+        width: 98%; 
+    }
+    
+    .contact {
+        width: 98%;
+    }
+    
+    .label {
+        width: 90px;
+    }
+    
+    .inspection-list {
+        margin: 0;
+    }
+    
+    .inspection-list .labels {
+        font-size: 14px;
+    }
+    
+    .notes .data {
+        font-size: 12px;
+    }
+    
+    .inspected img, .deficiency img {
+        width: 25px;
+    }
+    
 }
