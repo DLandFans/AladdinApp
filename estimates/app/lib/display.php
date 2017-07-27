@@ -5,8 +5,6 @@ class Display {
     public static function estimate(Estimate $estimate) {
         $html = '
         
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,7 +33,6 @@ class Display {
                 </div>
             </header>
 
-
             <section id="job-details"> 
                 <div class="bgfilled fh40">
                     <img  class="fh40" src="' . BASE_URL . 'images/bgcolor3.png">
@@ -46,8 +43,8 @@ class Display {
                         <div><div class="label">Job Name</div><div class="data">' . $estimate->jobName . '</div></div>
                         <div><div class="label">Address</div><div class="data">';
 
-        $html .= $estimate->street1;
-        if (isset($estimate->street2) && $estimate->street2 != NULL and $estimate->street2 !="" ) $html .= '<br />' . $estimate->street2;
+        $html .= $estimate->street1; 
+        if (isset($estimate->street2) && $estimate->street2 != NULL && $estimate->street2 !="" ) { $html .= '<br />' . $estimate->street2; }
         $html .= '<br />' . $estimate->city . ', ' . $estimate->state . '  ' . $estimate->zip;
         
         $html .= '</div></div>
@@ -64,181 +61,67 @@ class Display {
                         <div class="label">General Notes</div>
                         <div class="data">';
 
-        if (isset($estimate->overallNote) && $estimate->overallNote != NULL and $estimate->overallNote != "" ) 
-            $html .= $estimate->overallNote;
-        else
-            $html .= 'No general notes for this job.';
-        
-        $html .= '</div>';
-
-        $display_test = false;
-        foreach($estimate->images as $image) { if($image->classCode == 'general') $display_test = true; }
-
-        if($display_test) {
-            $html .= '<div class="references">';
-            $count = 0;
-            foreach($estimate->images as $image) {
-                if($image->classCode == 'general') {
-                    //For odds and evens, works great
-                    if(!($count&1) && $count > 0) {
-                        $html .= '</div><div class="references">';
-                    }
-                    $count++;
-                    $html .= '
-                            <div class="ref-image">
-                                <img src="' . $image->imageUrl_1280 . '" />
-                                <div class="img-desc">' . $image->description . '</div>
-                                <div class="img-class">' . $image->classification . '</div>
-                            </div>
-                    ';      
-                }    
-            }
-            $html .= '</div>';
+        if (!empty($estimate->generalNotes)) {
+            $html .= $estimate->generalNotes;
+        } else {
+            $html .= 'No General notes for this job.';
         }
         
+        $html .= '</div></div>';
+        
+        $html .= self::buildImageDisplay($estimate->images, $estimate->generalImageLabel);
+        
         $html .= '
-                    </div>
+                    
                 </div>
             </section>
-
-<h1>FAKED DATA BELOW THIS POINT</h1>
 
             <section id="contacts">
                 <div class="bgfilled fh40">
                     <img  class="fh40" src="images/bgcolor3.png">
                     <div class="title">Contacts</div>
-                </div>
-                <div class="content">
+                </div> ';
+        
+        if (!empty($estimate->contacts)) {
+            $html .= '<div class="content">';
+            foreach($estimate->contacts as $contact) {
+                $html .= '
                     <div class="contact">
-                        <div><div class="label">Name</div><div class="data">Persons Name</div></div>
-                        <div><div class="label">Roll</div><div class="data">Owner</div></div>
-                        <div><div class="label">Email</div><div class="data">myname@anydomain.com</div></div>
-                        <div><div class="label">Phone</div><div class="data">(123) 456-7890</div></div>
-                        <div><div class="label">Address</div><div class="data">1234 E. Any Street Name St<br>34647 N Another Named Ln<br>Phoenix, AZ  85000-1234</div></div>
+                        <div><div class="label">Name</div><div class="data">' .$contact->fullName . '</div></div>
+                        <div><div class="label">Roll</div><div class="data">' .$contact->type . '</div></div>
+                        <div><div class="label">Email</div><div class="data">' .$contact->email . '</div></div>
+                        <div><div class="label">Phone</div><div class="data">' .$contact->phone . '</div></div>
+                        <div><div class="label">Address</div><div class="data">'; 
+                        
+                $html .= $contact->street1; 
+                if (isset($contact->street2) && $contact->street2 != NULL && $contact->street2 !="" ) { $html .= '<br />' . $contact->street2; }
+                $html .= '<br />' . $contact->city . ', ' . $contact->state . '  ' . $contact->zip;
+                        
+                $html .= '</div></div>
                     </div>
-                    <div class="contact">
-                        <div><div class="label">Name</div><div class="data">Persons Name</div></div>
-                        <div><div class="label">Roll</div><div class="data">Owner</div></div>
-                        <div><div class="label">Email</div><div class="data">myname@anydomain.com</div></div>
-                        <div><div class="label">Phone</div><div class="data">(123) 456-7890</div></div>
-                        <div><div class="label">Address</div><div class="data">1234 E. Any Street Name St<br>34647 N Another Named Ln<br>Phoenix, AZ  85000-1234</div></div>
-                    </div>
-                    <div class="contact">
-                        <div><div class="label">Name</div><div class="data">Persons Name</div></div>
-                        <div><div class="label">Roll</div><div class="data">Owner</div></div>
-                        <div><div class="label">Email</div><div class="data">myname@anydomain.com</div></div>
-                        <div><div class="label">Phone</div><div class="data">(123) 456-7890</div></div>
-                        <div><div class="label">Address</div><div class="data">1234 E. Any Street Name St<br>34647 N Another Named Ln<br>Phoenix, AZ  85000-1234</div></div>
-                    </div>
-                </div>
-            </section>
-            <section id="general-conditions">
-                <div class="bgfilled fh40">
-                    <img  class="fh40" src="images/bgcolor3.png">
-                    <div class="title">General Conditions</div>
-                </div>
-                <div class="content">
+                ';
+            }
+            
+            $html .= '</div>';
+            
+        } else {
+            $html .= '<div class="content">No contacts for this job</div>';
+        }
+        
+        $html .= '
+            </section>';
 
-                    
-                    <div class="inspection-list">
-                        <div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Inspected</div><div class="deficiency labels">Deficiency</div></div>
-                        <div><div class="inspection-point">Debris</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="images/checkbox.png" /></div></div>
-                        <div><div class="inspection-point">Drainage</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="images/checkbox-checked.png" /></div></div>
-                        <div><div class="inspection-point">Structural</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="images/checkbox.png" /></div></div>
-                        <div><div class="inspection-point">Physical</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="images/checkbox-checked.png" /></div></div>
-                        <div><div class="inspection-point">Alterations</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="images/checkbox.png" /></div></div>
-                    </div>
-                    <div class="notes">
-                        <div class="label">General Notes</div>
-                        <div class="data">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt laoreet vulputate. Vivamus orci nisi, dapibus quis tellus sed, commodo euismod ante. Duis tincidunt nulla ut massa feugiat, non interdum libero sollicitudin. Cras felis felis, euismod eu porttitor sit amet, hendrerit ut odio. Donec nec tellus non massa facilisis molestie ut ut dolor. Ut dictum lorem ut justo condimentum facilisis. Ut commodo ex sed purus posuere eleifend. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum tempor accumsan mattis. Praesent eu bibendum turpis, eget maximus lorem.
-                            Proin dapibus id ante vitae elementum. Aliquam aliquet at metus eu rutrum. Quisque finibus orci eu nunc dictum sagittis sit amet a eros. In lacus mi, consequat et ante in, commodo lacinia ante. In ultricies euismod commodo. Nullam eu arcu et tellus posuere vulputate eget at urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam rutrum venenatis velit. Cras convallis tellus feugiat quam dignissim mollis.
-                        </div>
-                        <div class="references">
-                            <div class="ref-image">
-                                <img src="images/testuploadimage.jpg" />
-                                <div class="img-desc">Lorem ipsum dolor sit amet</div>
-                                <div class="img-class">General</div>
-                            </div>
-                            <div class="ref-image">
-                                <img src="images/testuploadimage.jpg" />
-                                <div class="img-desc">Lorem ipsum dolor sit amet</div>
-                                <div class="img-class">General</div>
-                            </div>
-                        </div>
-                        <div class="references">
-                            <div class="ref-image">
-                                <img src="images/testuploadimage.jpg" />
-                                <div class="img-desc">Lorem ipsum dolor sit amet</div>
-                                <div class="img-class">General</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-
-
-
-
-                    
-                </div>
-            </section>
-            <section id="surface-conditions">
-                <div class="bgfilled fh40">
-                    <img  class="fh40" src="images/bgcolor3.png">
-                    <div class="title">Surface Conditions</div>
-                </div>
-                <div class="content">
-
-
-
-
-
-                    
-                </div>
-            </section>
-            <section id="roofing-features">
-                <div class="bgfilled fh40">
-                    <img  class="fh40" src="images/bgcolor3.png">
-                    <div class="title">Roofing Features</div>
-                </div>
-                <div class="content">
-                    
-                </div>
-            </section>
-            <section id="exterior-conditions">
-                <div class="bgfilled fh40">
-                    <img  class="fh40" src="images/bgcolor3.png">
-                    <div class="title">Exterior Conditions</div>
-                </div>
-                <div class="content">
-                    
-                </div>
-            </section>
-            <section id="interior-conditions">
-                <div class="bgfilled fh40">
-                    <img  class="fh40" src="images/bgcolor3.png">
-                    <div class="title">Interior Conditions</div>
-                </div>
-                <div class="content">
-                    
-                </div>
-            </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            ';
-
-//END OF PAGE//
+        foreach($estimate->sections as $sectionName) {
+            
+            $section = array( 
+                'name' => $estimate->{$sectionName},
+                'labels' => $estimate->{$sectionName . 'Label'},
+                'checklist' => $estimate->{$sectionName . 'Checklist'},
+                'deficiencies' => $estimate->{$sectionName . 'Deficiency'}
+            );
+            
+            if($val = self::buildSection($section, $estimate->images)) { $html .= $val; }
+        }
 
         $html .= '
             <footer>
@@ -256,70 +139,7 @@ class Display {
         </div>
     </body>
 </html> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ';
-        
-
-
-
-
-
-
-
-        
         
         return $html;
     }
@@ -440,7 +260,183 @@ $html .= '</body>
         );
         
     }
+
+
+
+    private static function buildChecklist($labels,$checklist,$deficiency){
+        
+        unset($inner_html);
+        foreach($labels as $id=>$label)
+        {
+            if($checklist[$id]){
+                $inner_html .= '<div><div class="inspection-point">' . $label . '</div><div class="inspected"><img src="images/checkbox-checked.png" /></div><div class="deficiency"><img src="';
+                if($deficiency[$id]) {
+                    $inner_html .= 'images/checkbox-checked.png';
+                } else {
+                    $inner_html .= 'images/checkbox.png';
+                }
+                $inner_html .= '" /></div></div>';
+            }
+        }
+        
+        if($inner_html) { return '<div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Inspected</div><div class="deficiency labels">Deficiency</div></div>' . $inner_html; }
+        return;
+    }
+
     
     
     
+    
+    private static function buildImageDisplay($images,$labels) {
+        
+        $display_test = false;
+        foreach($images as $image) { 
+            foreach($labels as $id=>$label) {
+                if($image->classCode == $id ){
+                    $display_test=true;
+                    break;
+                }
+            }
+            if ($display_test) { break; }
+        }
+
+        if($display_test) {
+            $inner_html .= '<div class="references">';
+            $count = 0;
+            foreach($images as $image) {
+                if(array_key_exists($image->classCode, $labels)) {
+                    //For odds and evens, works great
+                    if(!($count&1) && $count > 0) {
+                        $inner_html .= '</div><div class="references">';
+                    }
+                    $count++;
+                    $inner_html .= '
+                            <div class="ref-image">
+                                <img src="' . $image->imageUrl_1280 . '" />
+                                <div class="img-desc">' . $image->description . '</div>
+                                <div class="img-class">' . $labels[$image->classCode] . '</div>
+                            </div>
+                    ';      
+                }    
+            }
+            $inner_html .= '</div>';
+            return $inner_html;
+        }
+        return;
+   }
+
+
+
+    
+   public static function buildSection($section, $images) {
+       
+       $inner_html_1 = '
+            <section id="' . $section['name']['id'] . '">
+                <div class="bgfilled fh40">
+                    <img  class="fh40" src="images/bgcolor3.png">
+                    <div class="title">' . $section['name']['label'] . 's</div>
+                </div>
+                <div class="content">
+                    <div class="inspection-list">';
+        
+        $inner_html_2 = self::buildChecklist($section['labels'], $section['checklist'], $section['deficiencies']);
+        
+        $inner_html_3 = '</div>';
+
+
+        $inner_html_4 = '
+                    <div class="notes">
+                        <div class="label">' . $section['name']['label'] . ' Notes</div>
+                        <div class="data">';
+        
+        if (!empty($section['name']['note'])) {
+            $inner_html_4 .= $section['name']['note'];
+        } else {
+            $inner_html_4 .= 'No ' . $section['name']['label'] . ' notes for this job.';
+        }
+        $inner_html_4 .= '
+                        </div>
+                    </div>';
+
+
+        
+        
+        $inner_html_5 = self::buildImageDisplay($images, $section['labels']);
+        
+        $inner_html_6 = '
+                </div>
+            </section>';
+        
+        if(empty($inner_html_2) && empty($inner_html_5) && empty($section['name']['note'])) { return; }
+
+        return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
+        
+        
+   }
+ 
+//   public static function buildSection($section, $images) {
+//       
+//       $return = false;
+//       
+//        $inner_html .= '
+//            <section id="' . $section['name']['id'] . '">
+//                <div class="bgfilled fh40">
+//                    <img  class="fh40" src="images/bgcolor3.png">
+//                    <div class="title">' . $section['name']['label'] . 's</div>
+//                </div>
+//                <div class="content">
+//                    <div class="inspection-list">';
+//        
+//        if($val = self::buildChecklist($section['labels'], $section['checklist'], $section['deficiencies'])) { 
+//            $return = true;
+//            $inner_html .= $val;
+//        }
+//        
+//        $inner_html .= '  </div>';
+//        
+//        
+//        
+//        
+//        $inner_html .= '
+//                    <div class="notes">
+//                        <div class="label">' . $section['name']['label'] . ' Notes</div>
+//                        <div class="data">';
+//        
+//        if (!empty($section['name']['note'])) {
+//            $inner_html .= $section['name']['note'];
+//        } else {
+//            $inner_html .= 'No ' . $section['name']['label'] . ' notes for this job.';
+//        }
+//        $inner_html .= '
+//                        </div>
+//                    </div>';
+//
+//        
+//        
+//        
+//        if ($val = self::buildImageDisplay($images, $section['labels'])){
+//            $return = true;
+//            $inner_html .= $val;
+//        }
+//        
+//        
+//        
+//        
+//        
+//        $inner_html .= '
+//                </div>
+//            </section>';
+//        
+//        
+//        
+//        if ($return) return $inner_html;
+//        
+//        return;
+//        
+//   }
+
+
+
+
+   
 }
