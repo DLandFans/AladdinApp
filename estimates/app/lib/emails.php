@@ -7,13 +7,6 @@ class Email {
        
         $email_est = array();
         
-        if (isset($estimate->estimator)) {
-            $email_est[] = array(
-                'name'=>$estimate->estimator,
-                'email'=>$estimate->estimatorEmail,
-                'type'=>ESTIMATOR_TYPE
-            );
-        } 
 
         
         if (isset($estimate->contacts)) {
@@ -25,6 +18,14 @@ class Email {
                 );
             }
         }
+        
+        if (isset($estimate->estimator)) {
+            $email_est[] = array(
+                'name'=>$estimate->estimator,
+                'email'=>$estimate->estimatorEmail,
+                'type'=>ESTIMATOR_TYPE
+            );
+        } 
         
         
         return array_merge($email_est,Knack::getAdminEmails());

@@ -46,6 +46,75 @@ section .bgunfilled h3 {
     font-weight: bold;
 }
 
+button {
+    color: #861b2f;
+    padding: 8px 25px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #ccc686;
+    border: 2px solid;
+    border-radius: 7px;
+}
+
+button:hover {
+    border: 2px solid;
+    cursor: pointer;
+    background-color: #d8cd53;
+}
+
+.emailList {
+    width: 70%;
+    margin: 0 15%;
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.emailList .emailname {
+    font-weight: bold;
+    display: inline-block;
+    width: 55%;
+    vertical-align: top;
+}
+
+.emailList .type {
+    font-style: italic;
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+}
+
+.emailList .check {
+    display: inline-block;
+    width: 5%;
+    vertical-align: top;
+}
+
+.emailList span.smallemail {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.emailList .button {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.viewnow {
+    padding: 20px 0 10px 10px;
+    font-size: 16px;
+}
+
+.viewnow > div:first-child {
+    padding-bottom: 5px;
+}
+
+.viewnow a {
+    padding-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #861B2F;
+}
 
 @media screen and (max-width: 500px) {
 
@@ -110,5 +179,22 @@ section .bgunfilled h3 {
     .inspected img, .deficiency img {
         width: 25px;
     }
+    
+    .address {
+        padding-top: 5px;
+    }
+ 
+    
+    .emailList {
+        width: 100%;
+        margin: 0%;
+        font-size: 12px;
+    }
+
+    .emailList .button {
+        padding: 5px 0;
+    }
+
+    
     
 }

@@ -158,19 +158,19 @@ class Display {
         
         $html .= '
             <section><div class="content">
-            <h2>Send Emails</h2>
-
-            <form action="' . BASE_URL . $estimate->internalId . '/' . $estimate->validationCode . '" method="POST" id="form1">
+            <h2>Send estimate reports to the following people:</h2>
+            <form action="' . BASE_URL . $estimate->internalId . '/' . $estimate->validationCode . '" method="POST" id="estimateForm">
         ';
 
         $count = 0;
         foreach($emails as $email) {
-            $html .= $email['name'] . ' ('. $email['type'] .') ' . ' <input type="checkbox" name="emailList[' . $count . ']" value="true" checked><br>';
+            $html .= '<div class="emailList"><div class="emailname">' . $email['name'] . '<br><span class="smallemail">' . $email['email']  . '</span></div><div class="type">' . $email['type'] . '</div><div class="check"><input type="checkbox" name="emailList[' . $count . ']" value="true" checked></div></div>';
+            
             $count++;
         }
                 
         $html .= '
-            <input type="submit" form="form1" value="Submit">
+            <div class="emailList"><div class="button"><button type="submit" form="estimateForm" value="Send Email Reports">Email Reports</button></div></div>
             </form>
             </div></section>';
 
@@ -190,7 +190,7 @@ class Display {
     public static function emailSent($results, $estimateArray) {
         $html = '<!DOCTYPE html>';
 
-        $html .= self::buildHead($estimate->jobName);
+        $html .= self::buildHead($estimateArray['jobName']);
         
         $html .='
     <body>
@@ -201,26 +201,40 @@ class Display {
         
         $html .= '
             <section><div class="content">
+            <h2>Emails have been sent to the following people:</h2>
 
-            <h2>Emails Sent</h2>
-            To view the estimate now <a href="'. BASE_URL . $estimateArray['id'] . '">click here</a> 
-                <br>
+            <div class="emailssent">
+            
         ';
 
         
-        if($results) {
-            $html .= "<br>Emails sent to:<br>";
+            if($results) {
             foreach($results as $result)
             {
-                $html .= $result['name'] . " (" . $result['type'] . ") at " . $result['email'] . "<br>"; 
+                $html .= '<div>' . $result['name'] . " (" . $result['type'] . ") at " . $result['email'] . "</div>"; 
             }
         } else {
-            $html .= "No emails sent since no emails were selected.";
+            $html .= "<div>No emails sent since no emails were selected.</div>";
         }
 
         
         
-        $html .= '</div></section>';
+        $html .= '
+            
+            <div class="viewnow">
+                <div>View the estimate for:</div>
+                <div><a href="'. BASE_URL . $estimateArray['id'] . '">' . $estimateArray['jobName'] . '</a></div>
+                <div><a href="'. BASE_URL . $estimateArray['id'] . '">' . $estimateArray['street1'] . '</a></div>';
+
+        if ($estimateArray['street2'] != "") {
+                $html .= '<div><a href="'. BASE_URL . $estimateArray['id'] . '">' . $estimateArray['street2'] . '</a></div>';
+        }
+        
+        $html .= '
+                <div><a href="'. BASE_URL . $estimateArray['id'] . '">' . $estimateArray['city'] . ', ' . $estimateArray['state'] . '  ' . $estimateArray['zip'] . '</a></div>
+            </div> 
+
+            </div></div></section>';
 
         $html .= self::buildFooter();
         
