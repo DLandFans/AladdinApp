@@ -2,10 +2,11 @@
 
 class Email {
     
-    public static function prepareEmails(Estimate $estimate){
+    public static function prepareEmails(EstimateMail $estimate){
 
+       
         $email_est = array();
-
+        
         if (isset($estimate->estimator)) {
             $email_est[] = array(
                 'name'=>$estimate->estimator,
@@ -13,6 +14,7 @@ class Email {
                 'type'=>ESTIMATOR_TYPE
             );
         } 
+
         
         if (isset($estimate->contacts)) {
             foreach($estimate->contacts as $contact) {

@@ -17,8 +17,8 @@ class Contact {
     public $type;
     private $typeId;
 
-    public function __construct($id) {
-        $contact = Knack::getObject(T_CONTACTS, $id);
+    public function __construct($contact) {
+        //$contact = Knack::getObject(T_CONTACTS, $id);
         
         $this->id = $contact->id;
         $this->fullName = $contact->field_90;

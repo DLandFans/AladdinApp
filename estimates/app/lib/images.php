@@ -6,7 +6,7 @@ class Image {
     public $description;
     public $classification;
     public $classId;
-    public $classCode;
+//    public $classCode;
     public $imageName;
     public $imageUrl;
     public $imageUrl_480;
@@ -30,9 +30,7 @@ class Image {
         $this->imageUrl_480 = $this->stripAmazonImage($image->{'field_37:thumb_3'});
         $this->imageUrl_1280 = $this->stripAmazonImage($image->{'field_37:thumb_5'});
 
-        
-        
-
+   
         
     }
     

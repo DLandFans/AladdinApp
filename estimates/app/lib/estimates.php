@@ -1,6 +1,6 @@
 <?php
 
-class Estimate {
+abstract class Estimate {
     
     public $sections = array('generalCondition','surfaceCondition','roofingFeature','exteriorSurface','interiorCondition');
     
@@ -20,7 +20,6 @@ class Estimate {
     public $overallNote;
     public $estimatedCost;
     public $estimator;
-    public $estimatorEmail;
     public $dateEstimated;
     public $estimatorId;
     public $dateCreated;
@@ -57,8 +56,6 @@ class Estimate {
     public $interiorConditionLabel;
     public $interiorConditionNotes;
     
-    public $images;
-    
     public $internalCount;
     public $internalId;
     public $validationCode;
@@ -82,7 +79,6 @@ class Estimate {
         $this->estimatedCost = $estimate->field_87_raw;
         $this->estimator = $estimate->field_41_raw[0]->identifier;
         $this->estimatorId = $estimate->field_41_raw[0]->id;
-        $this->estimatorEmail = Knack::getObject(T_ESTIMATORS, $this->estimatorId)->field_28_raw->email;
 
         $this->generalNotes = $estimate->field_88_raw;
         $this->generalImageLabel['general'] = 'General';
@@ -256,30 +252,46 @@ class Estimate {
         $this->validationCode = $estimate->field_109_raw;
 
         // Get Contacts (field_93)
-//        if(isset($estimate->field_93_raw)){
-//            foreach($estimate->field_93_raw as $contact) {
-//                $this->contacts[] = new Contact($contact->id);
-//            }
-//        }
+        if(isset($estimate->field_93_raw)){
+            foreach(Knack::getRecordsByIds($estimate->field_93_raw, T_CONTACTS) as $contact) {
+                $this->contacts[] = new Contact($contact);
+            }
+        }
         
+        return $estimate;
+        
+    }
+}
 
+//The view doesn't need the estimators email so don't need to include (or call the API)
+class EstimateView extends Estimate {
+ 
+    public $images;
+    
+    public function __construct($id) {
+        $estimate = parent::__construct($id);
+        
         // Get Images (field_40)
-//        if(isset($estimate->field_40_raw)){
-//            foreach($estimate->field_40_raw as $image) {
-//                $this->images[] = new Image($image->id);
-//            }
-//        } 
         if(isset($estimate->field_40_raw)){
             foreach(Knack::getRecordsByIds($estimate->field_40_raw,T_IMAGES) as $image) {
                 $this->images[] = new Image($image);
             }
         } 
-        
-
-        
-//        echo "<pre>";
-//        var_export($estimate->field_40_raw);
-//        exit;
-        
     }
 }
+
+//The email doesn't need the images so is doesn't call or use an API usage charge
+class EstimateMail extends Estimate {
+
+    public $estimatorEmail;
+
+    public function __construct($id) {
+        $estimate = parent::__construct($id);
+        
+        $this->estimatorEmail = Knack::getObject(T_ESTIMATORS, $this->estimatorId)->field_28_raw->email;
+    }
+    
+}
+
+
+

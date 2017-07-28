@@ -15,7 +15,7 @@ class AladdinRoofingApp {
     public function doEstimate()
     {
         if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
-        return Display::estimate(new Estimate($id));
+        return Display::estimate(new EstimateView($id));
     }
     
     public function doEmail() 
@@ -25,9 +25,11 @@ class AladdinRoofingApp {
         if($this->method == "GET") {
             if(!$id = Knack::getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
 
-            $estimate = new Estimate($id);
+            $estimate = new EstimateMail($id);
             $emails = Email::prepareEmails($estimate);
-            return Display::emailChoose($estimate,$emails);
+            
+            return Display::emailChoose($estimate, $emails);
+            
         }
 
         //Do POST

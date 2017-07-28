@@ -2,7 +2,7 @@
 
 class Display {
     
-    public static function estimate(Estimate $estimate) {
+    public static function estimate(EstimateView $estimate) {
         
         //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
         $html = '
@@ -278,10 +278,18 @@ class Display {
     
     private static function buildImageDisplay($images,$labels) {
         
+        
+//        echo "<pre>";
+//            var_export($images);
+//        exit;        
+//        
+        
+        
         $display_test = false;
         foreach($images as $image) { 
             foreach($labels as $id=>$label) {
-                if($image->classCode == $id ){
+//                if($image->classCode == $id ){
+                if($image->classification == $label){
                     $display_test=true;
                     break;
                 }
@@ -289,11 +297,14 @@ class Display {
             if ($display_test) { break; }
         }
 
+        
         if($display_test) {
+            
             $inner_html .= '<div class="references">';
             $count = 0;
             foreach($images as $image) {
-                if(array_key_exists($image->classCode, $labels)) {
+//                if(array_key_exists($image->classCode, $labels)) {
+                if(in_array($image->classification, $labels)) {
                     //For odds and evens, works great
                     if(!($count&1) && $count > 0) {
                         $inner_html .= '</div><div class="references">';
