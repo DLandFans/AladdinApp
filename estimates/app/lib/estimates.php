@@ -14,6 +14,7 @@ abstract class Estimate {
     public $state;
     public $zip;
     
+    public $stories;
     public $roofType;
     public $roofTypeId;
     public $roofAge;
@@ -60,8 +61,10 @@ abstract class Estimate {
     public $internalId;
     public $validationCode;
     
-    public function __construct($id) {
-        $estimate = Knack::getObject(T_ESTIMATES, $id);
+//    public function __construct($id) {
+    public function __construct($id, $code=NULL) {
+//        $estimate = Knack::getObject(T_ESTIMATES, $id);
+        if(!$estimate = Knack::getEstimateByFilter($id,$code)) { return false; }
         
         $this->id = $estimate->id;
         $this->jobName = $estimate->field_1_raw;
@@ -73,6 +76,7 @@ abstract class Estimate {
         $this->state = $estimate->field_32_raw->state;
         $this->zip = $estimate->field_32_raw->zip;
         
+        $this->stories = $estimate->field_153_raw;
         $this->roofType = $estimate->field_34_raw[0]->identifier;
         $this->roofTypeId = $estimate->field_34_raw[0]->id;
         $this->roofAge = $estimate->field_35_raw;
@@ -268,8 +272,9 @@ class EstimateView extends Estimate {
  
     public $images;
     
-    public function __construct($id) {
-        $estimate = parent::__construct($id);
+    public function __construct($id, $code=NULL) {
+//    public function __construct($id) {
+        if(!$estimate = parent::__construct($id,$code)) { return false; }
         
         // Get Images (field_40)
         if(isset($estimate->field_40_raw)){
@@ -277,6 +282,8 @@ class EstimateView extends Estimate {
                 $this->images[] = new Image($image);
             }
         } 
+        
+        return true;
     }
 }
 
@@ -285,10 +292,13 @@ class EstimateMail extends Estimate {
 
     public $estimatorEmail;
 
-    public function __construct($id) {
-        $estimate = parent::__construct($id);
+    public function __construct($id, $code=NULL) {
+//    public function __construct($id) {
+        if(!$estimate = parent::__construct($id,$code)) { return false; }
         
         $this->estimatorEmail = Knack::getObject(T_ESTIMATORS, $this->estimatorId)->field_28_raw->email;
+        
+        return true;
     }
     
 }

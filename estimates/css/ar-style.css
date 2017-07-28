@@ -10,7 +10,7 @@ body {
     padding: 0;
 }
 
-.bgfilled {
+.bgfilled, bgunfilled {
     position: relative;
     width: 100%;
 }
@@ -46,6 +46,19 @@ section .bgfilled {
     border-bottom: 2px solid #861B2F;
 }
 
+section .bgunfilled h3 {
+    margin: 5px 0 0 10px;
+}
+
+section .content p {
+    margin: 0px 5px 10px 5px;
+}
+
+section .bgunfilled {
+    border-top: 2px solid #861B2F;
+}
+
+
 section .title {
     padding: 5px 0 0 10px;
     font-weight: bold;
@@ -75,7 +88,7 @@ section .title {
     font-style: italic;
 }
 
-.cost { padding-top: 25px;}
+.cost { padding-top: 15px;}
 
 .contact {
     width: 49%;

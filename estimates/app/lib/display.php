@@ -5,40 +5,22 @@ class Display {
     public static function estimate(EstimateView $estimate) {
         
         //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
-        $html = '
+        $html = '<!DOCTYPE html>';
+
+        $html .= self::buildHead($estimate->jobName);
         
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Aladdin Roofing Estimate for ' . $estimate->jobName . '</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Aladdin Roofing Estimate" />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
-        <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
-    </head>
+        $html .='
     <body>
         <div id="instructions" class="screen">
             Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.<br />
             <input type="button" onClick="window.print()" value="Print This Estimate" />
         </div>
         <div class="print"></div>
-        <div id="page">
+        <div id="page">';
 
-            <header>
-                <div class="bgfilled fh100">
-                    <img class="fh100" src="' . BASE_URL . 'images/bgcolor1.png" />
-                    <div class="title">
-                        <img src="' . BASE_URL . 'images/AladdinRoofingLogo.jpg" />
-                        <div>
-                            <h1 class="desktoponly">Estimate</h1>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
+        $html .= self::builderHeader('Estimate');
+        
+        $html .= '
             <section id="job-details"> 
                 <div class="bgfilled fh40">
                     <img  class="fh40" src="' . BASE_URL . 'images/bgcolor3.png">
@@ -61,6 +43,7 @@ class Display {
                     <div class="roof-type">
                         <div><div class="label">Roof Type</div><div class="data">' . $estimate->roofType . '</div></div>
                         <div><div class="label">Roof Age</div><div class="data">' . $estimate->roofAge . ' Years</div></div>
+                        <div><div class="label"># of Stories</div><div class="data">' . $estimate->stories . '</div></div>
                         <div class="cost"><div class="label important">Cost</div><div class="data important">$' . $estimate->estimatedCost . '</div></div>
                     </div>
                     <div class="notes">
@@ -129,19 +112,26 @@ class Display {
             if($val = self::buildSection($section, $estimate->images)) { $html .= $val; }
         }
 
+        
         $html .= '
-            <footer>
-                <div class="bgfilled fh100">
-                    <img class="fh100" src="images/bgcolor1.png" />
-                    <div class="address">
-                        <div class="name">Aladdin Roofing</div>
-                        <div class="physical">15806 W. Prickly Pear Trail     Surprise, AZ  85387</div>
-                        <div class="phone">(602) 296-7354</div>
-                        <div class="ROC">AZ ROC# 195596</div>
-                        <div class="copyright">&copy; 2017 Aladdin Roofing.  All rights reserved.</div>
-                    </div>
-                </div>
-            </footer> 
+            
+        <section id="legal-notice">
+        <div class="bgunfilled">
+            <h3>Legal Disclaimer:</h3>
+        </div>
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna ex, blandit eget finibus et, porta quis ligula. Nunc egestas sed mi eu sollicitudin. Integer rutrum lacinia ultricies. Etiam suscipit luctus massa, ac convallis diam aliquet ut. Donec sed neque accumsan, malesuada nisl pretium, ullamcorper nibh. Aenean finibus ultricies aliquam. Nulla vel arcu urna. Mauris vestibulum aliquam condimentum. Cras sagittis eros eget enim finibus, eget volutpat urna accumsan. Ut eu lobortis eros.</p>
+            <p>In sit amet velit lacus. Phasellus luctus, mi sit amet vulputate hendrerit, sem arcu laoreet turpis, eu dapibus nulla diam non libero. Cras ac gravida ligula. Donec ac tristique urna. Donec nec feugiat tortor. Sed lacinia purus quam, non rutrum nibh sagittis eget. Etiam blandit, est id bibendum tincidunt, erat ante pharetra dolor, eget volutpat tellus odio nec sapien. In vitae turpis accumsan, vestibulum urna ac, aliquet lectus. Phasellus lobortis sapien vitae tellus fermentum, at blandit leo sollicitudin. Aenean posuere vehicula eros id tincidunt.</p>
+        </div>
+        </section>
+                ';
+
+
+
+        
+        $html .= self::buildFooter();
+        
+        $html .= '
         </div>
     </body>
 </html> 
@@ -153,26 +143,21 @@ class Display {
     public static function emailChoose(Estimate $estimate, $emails) {
         $_SESSION['emails'] = $emails;
         $_SESSION['estimateArray'] = self::buildEstimateArray($estimate); 
-        $html = '
-            <!doctype html>
+        
+        $html = '<!DOCTYPE html>';
 
-            <html lang="en">
-            <head>
-              <meta charset="utf-8">
+        $html .= self::buildHead($estimate->jobName);
+        
+        $html .='
+    <body>
+        <div id="page">';
 
-              <title>Aladdin Roofing Estimate - ' . $estimate->jobName . '</title>
-              <meta name="description" content="Aladdin Estimating App">
-              <meta name="author" content="Todd Tamcsin Photography">
-              <meta name="robots" content="noindex, nofollow" />
-              <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
+        $html .= self::builderHeader('Email Estimate');
 
-              <!--[if lt IE 9]>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-              <![endif]-->
-
-            </head>
-            <body>
-            <h1>' . $estimate->jobName . '</h1>
+        
+        
+        $html .= '
+            <section><div class="content">
             <h2>Send Emails</h2>
 
             <form action="' . BASE_URL . $estimate->internalId . '/' . $estimate->validationCode . '" method="POST" id="form1">
@@ -186,37 +171,37 @@ class Display {
                 
         $html .= '
             <input type="submit" form="form1" value="Submit">
-            <form>
+            </form>
+            </div></section>';
 
-            </body>
-            </html>
+        $html .= self::buildFooter();
         
-        ';
+        $html .= '
+        </div>
+    </body>
+</html> 
+';
+        
+        
+        
         return $html;
     }
     
     public static function emailSent($results, $estimateArray) {
-        $html = '
-            <!doctype html>
+        $html = '<!DOCTYPE html>';
 
-            <html lang="en">
-            <head>
-              <meta charset="utf-8">
+        $html .= self::buildHead($estimate->jobName);
+        
+        $html .='
+    <body>
+        <div id="page">';
 
-              <title>Aladdin Roofing Estimate - ' . $estimateArray['jobname'] . '</title>
-              <meta name="description" content="Aladdin Estimating App">
-              <meta name="author" content="Todd Tamcsin Photography">
-              <meta name="robots" content="noindex, nofollow" />
+        $html .= self::builderHeader('Email Estimate');
 
-              <!--<link rel="stylesheet" href="css/styles.css?v=1.0">-->
+        
+        $html .= '
+            <section><div class="content">
 
-              <!--[if lt IE 9]>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-              <![endif]-->
-
-            </head>
-            <body>
-            <h1>Job - ' . $estimateArray['jobName'] . '</h1>
             <h2>Emails Sent</h2>
             To view the estimate now <a href="'. BASE_URL . $estimateArray['id'] . '">click here</a> 
                 <br>
@@ -235,10 +220,15 @@ class Display {
 
         
         
-        $html .= '</body>
-            </html>
+        $html .= '</div></section>';
+
+        $html .= self::buildFooter();
         
-        ';
+        $html .= '
+        </div>
+    </body>
+</html> 
+';
         return $html;
     }
     
@@ -277,13 +267,6 @@ class Display {
     }
     
     private static function buildImageDisplay($images,$labels) {
-        
-        
-//        echo "<pre>";
-//            var_export($images);
-//        exit;        
-//        
-        
         
         $display_test = false;
         foreach($images as $image) { 
@@ -361,25 +344,60 @@ class Display {
         return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
    }
  
-   private function buildHead($title) {
+   private static function buildHead($title) {
        
-       $html = '
-       <!DOCTYPE html>
-
+       $inner_html = '
        <html lang="en">
-    <head>
-        <title>Aladdin Roofing Estimate for ' . $title . '</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Aladdin Roofing Estimate" />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
-        <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
-    </head>
-               
+            <head>
+                <title>Aladdin Roofing Estimate for ' . $title . '</title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="description" content="Aladdin Roofing Estimate" />
+                <meta name="robots" content="noindex, nofollow" />
+                <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
+                <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
+                <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
+            </head>
+
                ';
+       return $inner_html;
 
    }
    
+   private static function builderHeader($type) {
+       $inner_html = '
+            <header>
+                <div class="bgfilled fh100">
+                    <img class="fh100" src="' . BASE_URL . 'images/bgcolor1.png" />
+                    <div class="title">
+                        <img src="' . BASE_URL . 'images/AladdinRoofingLogo.jpg" />
+                        <div>
+                            <h1 class="desktoponly">' . $type . '</h1>
+                        </div>
+                    </div>
+                </div>
+            </header>';
+       
+       return $inner_html;
+   }
+ 
+   
+   public static function buildFooter() {
+        $inner_html .= '
+            <footer>
+                <div class="bgfilled fh100">
+                    <img class="fh100" src="' . BASE_URL . 'images/bgcolor1.png" />
+                    <div class="address">
+                        <div class="name">Aladdin Roofing</div>
+                        <div class="physical">15806 W. Prickly Pear Trail     Surprise, AZ  85387</div>
+                        <div class="phone">(602) 296-7354</div>
+                        <div class="ROC">AZ ROC# 195596</div>
+                        <div class="copyright">&copy; 2017 Aladdin Roofing.  All rights reserved.</div>
+                    </div>
+                </div>
+            </footer>';
+        
+        return $inner_html;
+
+   }
 }

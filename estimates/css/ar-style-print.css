@@ -21,6 +21,15 @@ section .title {
     font-size: 1.5em;
 }
 
+section .bgunfilled h3 {
+    font-size: 1em;
+}
+
+section .content p {
+    font-size: .8em;
+}
+
+
 .label, .data {
     font-size: 1em;
 }

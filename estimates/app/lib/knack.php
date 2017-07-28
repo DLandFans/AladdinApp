@@ -32,7 +32,11 @@ class Knack {
         }
         return false;
     }
+    
+    
 
+    
+    //Get Object by its ID
     public static function getObject($table, $id) {
         $apiUrl = KNACK_URL . "objects/" . $table . "/records/" . $id;
         if($record = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)))) {
@@ -41,6 +45,33 @@ class Knack {
         return false;
     }
     
+
+    //Gets an Object by passing in its internal Code and if necessary the validation code
+    public static function getEstimateByFilter($id, $code=NULL){
+        $apiUrl = KNACK_URL . "objects/" . T_ESTIMATES . "/records";
+
+        //Field_110 = Link Show
+        //Field_109 = Verification Code
+        
+        if(!isset($code)) {
+            $filters = '{"match":"and","rules":[{"field":"field_110","operator":"is","value":"' . $id . '"}]}';
+        } else {
+            $filters = '{"match":"and","rules":[{"field":"field_110","operator":"is","value":"' . $id . '"},{"field":"field_109","operator":"is","value":"' . $code . '"}]}';
+        }
+        
+        $apiUrl .= '?filters=' . urlencode($filters);
+        $find = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
+      
+        if (isset($find->records[0])) {
+            return $find->records[0];
+        }
+        return false;
+    }
+
+    
+
+
+
     public static function getClassificationCode($classification) {
         $apiUrl = KNACK_URL . "objects/" . T_IMAGECLASSIFICATIONS . "/records";
         
@@ -71,6 +102,9 @@ class Knack {
         return false;
     }
     
+    
+    
+    
     public static function getAdminEmails() {
         $apiUrl = KNACK_URL . "objects/" . T_ADMINISTRATORS . "/records?rows_per_page=1000";
         $admins = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
@@ -89,6 +123,8 @@ class Knack {
     }
     
     
+    
+    //Gets foreign tables by passing in an array or IDs
     public static function getRecordsByIds($ids,$table) {
         $apiUrl = KNACK_URL . "objects/" . $table . "/records";
         
