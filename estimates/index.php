@@ -33,6 +33,7 @@
     </head>
     <body>
         <div id="status"></div>
+        <div id="information"></div>
         <div id="main">
             <div id="knack-dist_2">Loading...</div>
         </div>
