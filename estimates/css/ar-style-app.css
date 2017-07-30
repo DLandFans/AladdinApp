@@ -1,3 +1,198 @@
-#main {
-    width: 100%;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    width:100%;
+    margin:0;
+    padding:0;
+    background-color:#FFFFEE;
 }
+
+header {
+    background-color: #861B2F;
+}
+
+header .title {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 63px;
+    text-align: left;
+}
+
+header .title div {
+    vertical-align: top;
+    color: #EEE;
+    font-size: 31px;
+    display: inline-block;
+    position: relative;
+    top: 14px;
+    left: -12px;
+}
+
+header .title img {
+    height: 63px;
+    display: inline-block;
+}
+
+
+#main {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #861B2F;
+}
+
+footer .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 40px;
+    text-align:center;
+    color: #EEE;
+    font-size: 12px;
+    padding: 10px;
+}
+
+.kn-content {
+    padding:0;
+}
+
+.kn-content a.kn-link-page {
+    text-decoration: none;
+}
+
+.kn-button {
+    width: 25%;
+}
+
+#view_31 div.kn-details-group:nth-child(4) .kn-details-group-column.column {
+/*    background-color: #861B2F;*/
+}
+
+/*#view_31 div.kn-details-group:nth-child(1) th.kn-label {
+    background-color: #F00 !important;
+}*/
+
+.kn-button:hover {
+    background-color: #ceabb1 !important;
+}
+
+.kn-button {
+    background-color: #e2d3d6 !important;
+}
+
+.kn-content h1, .kn-content h2, .kn-content h3, .kn-content h4, .kn-content h5, .kn-content h6 {
+    margin-bottom: 0px !important;
+}
+
+.view-header {
+    border-bottom: solid #000 1px;
+}
+.kn-details-group tr {
+    border:none !important;
+}
+
+.kn-back-link {
+    font-weight: bold;
+}
+
+.kn-subtitle {
+    font-size: 12px !important;
+}
+
+.kn-back-link {
+    margin-top: 35px;
+}
+
+.kn-back-link.kn-button {
+    height: 50px !important;
+}
+
+a.kn-link-delete {
+    text-decoration: none !important;
+}
+
+li.kn-form-col.column.is-one-half {
+    float: left;
+    width: 50%;
+}
+
+li.kn-form-col.column.is-constrained {
+    clear: both;
+}
+
+.is-one-half .kn-input-boolean {
+    height: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+tr[class^="field"] .kn-value {
+    padding-bottom: 20px;
+}
+
+
+@media screen and (max-width: 500px) {
+    header .title {
+        text-align: center;
+    }
+    
+    header .title img {
+        display: block;
+        margin-left: 45px;
+    }
+    
+    header .title div {
+        display:none;
+    }
+    
+    div#knack-dist_2 {
+        position: relative;
+        top: -63px;
+    }
+    
+    div#knack-dist_2 header {
+        background-color: transparent;
+    }
+    
+    .kn-login {
+        padding-top: 50px
+    }
+    
+    .kn-button {
+        width: 100%;
+    }
+    
+    .kn-label, .kn-value {
+        font-size: 14px;
+    }
+    
+    .kn-button {
+        height: 50px !important;
+    }
+    
+    .kn-back-link.kn-button {
+        height: 75px !important;
+    }
+    
+    .kn-special-title {
+        font-size:14px !important;
+    }
+
+    .is-one-half .kn-input-boolean {
+        font-size: 12px
+    }
+    
+    div#view_60 .kn-label {
+        font-size: 12px;
+    }
+
+    tr[class^="field"] .kn-label {
+        height: 45px;
+        overflow: hidden;
+    }
+
+}
+    
+    

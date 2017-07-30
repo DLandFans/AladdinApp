@@ -1,0 +1,25 @@
+{
+  "short_name": "Aladdin Roofing App",
+  "name": "Aladdin Roofing Estimator Application",
+  "icons": [
+    {
+      "src": "images/launcher-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "images/launcher-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "images/launcher-icon-4x.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/estimates/index.php",
+  "display": "standalone",
+  "orientation": "portrait"
+
+}
