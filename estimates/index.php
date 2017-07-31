@@ -59,7 +59,15 @@
             <div id="knack-dist_2">Loading...</div>
         </div>
         <footer>
-            <div class="content">This is for the footer</div>
+            <div class="content">
+                <div class="address">
+                    <div class="name">Aladdin Roofing</div>
+                    <div class="physical">15806 W. Prickly Pear Trail     Surprise, AZ  85387</div>
+                    <div class="phone">(602) 296-7354</div>
+                    <div class="ROC">AZ ROC# 195596</div> 
+                    <div class="copyright">&copy; <?php echo date("Y"); ?> Aladdin Roofing.  All rights reserved.</div>
+                </div>
+            </div>
         </footer>
     </body>
 </html> 

@@ -9,12 +9,15 @@ class Contact {
     public $email;
     public $phone;
     public $phoneRaw;
+    public $phoneAlt;
+    public $phoneAltRaw;
     public $street1;
     public $street2;
     public $city;
     public $state;
     public $zip;
     public $type;
+    public $notes;
     private $typeId;
 
     public function __construct($contact) {
@@ -27,11 +30,14 @@ class Contact {
         $this->email = $contact->field_94_raw->email;
         $this->phone = $contact->field_96_raw->formatted;
         $this->phoneRaw = $contact->field_96_raw->full;
+        $this->phoneAlt = $contact->field_154_raw->formatted;
+        $this->phoneAltRaw = $contact->field_154_raw->full;
         $this->street1 = $contact->field_95_raw->street;
         $this->street2 = $contact->field_95_raw->street2;
         $this->city = $contact->field_95_raw->city;
         $this->state = $contact->field_95_raw->state;
         $this->zip = $contact->field_95_raw->zip;
+        $this->notes = $contact->field_155_raw;
         $this->type = $contact->field_92_raw[0]->identifier;
         $this->typeId = $contact->field_92_raw[0]->id;
     }

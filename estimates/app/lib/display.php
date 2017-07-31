@@ -79,16 +79,23 @@ class Display {
                         <div><div class="label">Name</div><div class="data">' .$contact->fullName . '</div></div>
                         <div><div class="label">Roll</div><div class="data">' .$contact->type . '</div></div>
                         <div><div class="label">Email</div><div class="data">' .$contact->email . '</div></div>
-                        <div><div class="label">Phone</div><div class="data">' .$contact->phone . '</div></div>
-                        <div><div class="label">Address</div><div class="data">'; 
+                        <div><div class="label">Phone</div><div class="data">' .$contact->phone . '</div></div>';
+                
+                if (isset($contact->phoneAlt) && $contact->phoneAlt != NULL && $contact->phoneAlt !="" ) { $html .= '<div><div class="label">Phone Alt</div><div class="data">' .$contact->phoneAlt . '</div></div>'; }
+                        
+                $html .= '<div><div class="label">Address</div><div class="data">'; 
                         
                 $html .= $contact->street1; 
                 if (isset($contact->street2) && $contact->street2 != NULL && $contact->street2 !="" ) { $html .= '<br />' . $contact->street2; }
                 $html .= '<br />' . $contact->city . ', ' . $contact->state . '  ' . $contact->zip;
                         
-                $html .= '</div></div>
-                    </div>
-                ';
+                $html .= '</div></div>';
+
+                if (isset($contact->phoneAlt) && $contact->phoneAlt != NULL && $contact->phoneAlt !="" ) { $html .= '<div><div class="label">Additional Info</div><div class="data">' .$contact->notes . '</div></div>'; }
+
+                        
+
+                $html .= '</div>';
             }
             
             $html .= '</div>';
@@ -406,11 +413,10 @@ class Display {
                         <div class="physical">15806 W. Prickly Pear Trail     Surprise, AZ  85387</div>
                         <div class="phone">(602) 296-7354</div>
                         <div class="ROC">AZ ROC# 195596</div>
-                        <div class="copyright">&copy; 2017 Aladdin Roofing.  All rights reserved.</div>
+                        <div class="copyright">&copy; ' . date("Y") . ' Aladdin Roofing.  All rights reserved.</div>
                     </div>
                 </div>
             </footer>';
-        
         return $inner_html;
 
    }

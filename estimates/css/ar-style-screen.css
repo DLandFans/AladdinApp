@@ -116,7 +116,7 @@ button:hover {
     color: #861B2F;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
 
     
     .desktoponly { display:none; }
@@ -137,6 +137,10 @@ button:hover {
         font-size: 14px;
         padding: 0;
         margin: 0 5px;
+    }
+    
+    section .title {
+        font-size: 20px;
     }
     
     
