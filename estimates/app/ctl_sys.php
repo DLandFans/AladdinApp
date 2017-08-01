@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: application/json');
-if(!require_once(__DIR__ . '/config/defaults.php')) die ("System defaults couldn't be loaded.");
-if(!require_once(__DIR__ . '/lib/knack.php')) die("Database system couldn't be loaded.");
+
+//Initialize set-up of libraries and defaults
+if (!include_once("load.php")) die("Initialization not complete!");
 
 $id = preg_replace('/[^A-Za-z0-9 ]/','',filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING, array(FILTER_FLAG_STRIP_LOW,FILTER_FLAG_STRIP_HIGH,FILTER_FLAG_NO_ENCODE_QUOTES)));
 $name = preg_replace('/[^A-Za-z0-9 ]/','',filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING,array(FILTER_FLAG_STRIP_LOW,FILTER_FLAG_STRIP_HIGH,FILTER_FLAG_NO_ENCODE_QUOTES)));
@@ -32,13 +33,17 @@ if (isset($type)) {
 
 if (isset($error)) {
     exit(json_encode($error));
-    unset($error);
 }
 
 //Ok, do your thing
+$result = Knack::updateApproval($id, $name);
 
-//$data = array( $id, $name );
-//
-//echo json_encode($data);
+$mailto = array(array(
+        'email' => 'approvals@aladdinroofing.com',
+        'name' => 'Aladdin Approvals'
+    ));
 
-echo Knack::updateApproval($id, $name);
+//Send notification email
+Email::sendApprovalNotification($mailto, json_decode($result));
+
+echo $result;

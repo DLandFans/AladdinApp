@@ -5,11 +5,11 @@ function makeApproval() {
     var id = $('input[name="estId"]').val();
     
     if (name.length < 2) {
-        $('#approve_status').css('color','#F00');
+        $('#approve_status').css('color','#400');
         $('#approve_status').text("You must provide a name for approval.");
     } else if (checked == false) {
-        $('#approve_status').css('color','#F00');
-        $('#approve_status').text("You must check the authorize box to approve this estimate.");
+        $('#approve_status').css('color','#400');
+        $('#approve_status').text("You must check to authorize.");
     } else {
         
            var sendData = 'id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
@@ -21,14 +21,17 @@ function makeApproval() {
                 datatype: 'json',
                 success: function(response) {
                     if(response.id) {
-                        $('#approveForm').css('color','#0F0');
+                        $('#approveForm').css('color','#040');
+                        $('#approveForm').css('text-align','center');
+                        $('#approveForm').css('font-size','22px');
+                        $('#approveForm').css('padding-top','15px');
                         $('#approveForm').html('Job: ' + response.field_1 + ' has been approved by ' + response.field_156);
                     } else {
-                        $('#approve_status').css('color','#F00');
+                        $('#approve_status').css('color','#400');
                         if(response[0].FATAL_ERROR) {
-                            $('#approve_status').text('ERROR ' + response[0].FATAL_ERROR);
+                            $('#approve_status').html('ERROR ' + response[0].FATAL_ERROR);
                         } else {
-                            $('#approve_status').text('ERROR updating record.');
+                            $('#approve_status').html('ERROR updating record.');
                         }
                     }
                     

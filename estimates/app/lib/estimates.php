@@ -303,5 +303,3 @@ class EstimateMail extends Estimate {
     
 }
 
-
-

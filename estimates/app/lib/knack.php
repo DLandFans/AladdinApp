@@ -38,8 +38,6 @@ class Knack {
         }
         return false;
     }
-    
-    
 
     
     //Get Object by its ID
@@ -74,10 +72,6 @@ class Knack {
         return false;
     }
 
-    
-
-
-
     public static function getClassificationCode($classification) {
         $apiUrl = KNACK_URL . "objects/" . T_IMAGECLASSIFICATIONS . "/records";
         
@@ -108,9 +102,6 @@ class Knack {
         return false;
     }
     
-    
-    
-    
     public static function getAdminEmails() {
         $apiUrl = KNACK_URL . "objects/" . T_ADMINISTRATORS . "/records?rows_per_page=1000";
         $admins = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
@@ -128,12 +119,9 @@ class Knack {
         return $email_adm;
     }
     
-    
-    
     //Gets foreign tables by passing in an array or IDs
     public static function getRecordsByIds($ids,$table) {
         $apiUrl = KNACK_URL . "objects/" . $table . "/records";
-        
         
         $filters = '{"match":"or","rules":[';
 
@@ -144,11 +132,9 @@ class Knack {
             $count++;
         }
         
-        
         $filters .= ']}';
 
         $apiUrl .= '?rows_per_page=1000&filters=' . urlencode($filters);
-        
         
         $find = json_decode(file_get_contents($apiUrl, false, stream_context_create(self::$context)));
         
@@ -174,7 +160,6 @@ class Knack {
         return file_get_contents($apiUrl, false, stream_context_create($context));
         
     }
-
    
 }
 

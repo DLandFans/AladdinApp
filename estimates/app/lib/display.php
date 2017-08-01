@@ -13,23 +13,32 @@ class Display {
     <body>
         <script type="text/javascript" src="js/ar-estimate-approve.js"></script>
         <div id="instructions" class="screen">
-            Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.<br />
-            <input type="button" onClick="window.print()" value="Print This Estimate" /><br />
-            <br />';
+            <div id="printForm">
+                <div class="info">
+                    <div><span class="label">Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.</span></div>
+                </div>
+                <div class="buttons"><img src="images/print_button.png" onClick="window.print()" id="print_button" /></div>
+            </div>
+        ';
         
         if ($estimate->status == 'Active') {
             $html .= '
-                
+            <div class="clear"></div>
             <div id="approveForm">
-                Approver Name: <input type="text" name="approvedName" /><br />
-                I authorize this estimate: <input type="checkbox" name="approvedCheck" /><br />
-                <input class="ttp_hide" type="hidden" value="' . $estimate->id . '" name="estId" />
-                <button id="approve_btn" onclick="makeApproval()" type="button">Approve This Estimate</button><br />
-                <div id="approve_status"></div>
+                <input type="hidden" value="' . $estimate->id . '" name="estId" />
+                <div class="info">
+                    <div><span class="label">Approver Name:</span><span class="data"><input type="text" name="approvedName" /></span></div>
+                    <div><span class="label">I authorize this estimate:</span><span class="data"><input type="checkbox" name="approvedCheck" /></span></div>
+                </div>
+                <div class="buttons">
+                    <div><img src="images/approve_button.png" onClick="makeApproval()" id="approve_button" /></div>
+                    <div id="approve_status"></div>
+                </div>
             </div>';
         }
  
         $html .= '
+            <div class="clear"></div>
         
         </div>
         <div class="print"></div>
@@ -144,8 +153,7 @@ class Display {
             <h3>Legal Disclaimer:</h3>
         </div>
         <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna ex, blandit eget finibus et, porta quis ligula. Nunc egestas sed mi eu sollicitudin. Integer rutrum lacinia ultricies. Etiam suscipit luctus massa, ac convallis diam aliquet ut. Donec sed neque accumsan, malesuada nisl pretium, ullamcorper nibh. Aenean finibus ultricies aliquam. Nulla vel arcu urna. Mauris vestibulum aliquam condimentum. Cras sagittis eros eget enim finibus, eget volutpat urna accumsan. Ut eu lobortis eros.</p>
-            <p>In sit amet velit lacus. Phasellus luctus, mi sit amet vulputate hendrerit, sem arcu laoreet turpis, eu dapibus nulla diam non libero. Cras ac gravida ligula. Donec ac tristique urna. Donec nec feugiat tortor. Sed lacinia purus quam, non rutrum nibh sagittis eget. Etiam blandit, est id bibendum tincidunt, erat ante pharetra dolor, eget volutpat tellus odio nec sapien. In vitae turpis accumsan, vestibulum urna ac, aliquet lectus. Phasellus lobortis sapien vitae tellus fermentum, at blandit leo sollicitudin. Aenean posuere vehicula eros id tincidunt.</p>
+            <p>This inspection report details the condition of the roof and related structure at the time of the inspection. Roofing conditions can change at any time due to weather and other circumstances. The estimated repair costs are contingent upon the roof conditions not changing since the time of the inspection. Therefore the estimate is valid for 60 days from the date of the inspection, provided conditions of the roof and related satructures have not changed since the inspection. If upon initiation of your repair we determine that conditions have changed since the inspection, we will document these changes, notify you of the changes, and request a new approval.</p>            
         </div>
         </section>
                 ';
@@ -280,7 +288,8 @@ class Display {
             'state' => $estimate->state,
             'zip' => $estimate->zip,
             'id' => $estimate->internalId,
-            'code' => $estimate->validationCode
+            'code' => $estimate->validationCode,
+            'date' => $estimate->dateEstimated['date']
         );
     }
 
@@ -395,7 +404,7 @@ class Display {
                 <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
                 <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
                 <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
-                <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+                <script tpye="text/javascript" src="js/jquery-3.2.1.min.js"></script>
             </head>
 
                ';

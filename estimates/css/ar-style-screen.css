@@ -10,6 +10,43 @@ body {
 #instructions {
     padding: 15px;
     font-weight: bold;
+    font-size: 16px;
+}
+
+#printForm .label {
+    width: 100%;
+}
+
+#printForm .info {
+    width: 70%;
+    float: left;
+    padding-top: 5px;
+}
+
+#printForm .buttons {
+    float: left;
+}
+
+#approveForm .info {
+    width: 70%;
+    float: left;
+}
+
+#instructions .clear {
+    clear:both;
+}
+
+#approveForm .buttons {
+    float: left;
+}
+
+#approveForm .label {
+    width: 225px;
+}
+
+div#approve_status {
+    font-size: 12px;
+    text-align: center;
 }
 
 header .title h1 { 
