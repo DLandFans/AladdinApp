@@ -7,6 +7,12 @@ class Knack {
                 'header'=>  "Accept-language: en\r\n" . "X-Knack-Application-Id:" . KNACK_ID . "\r\n" . "X-Knack-REST-API-KEY:" . KNACK_KEY . "\r\n"
     ));
     
+    private static $context_update = array (
+            'http'=>array(
+                'method'=>"PUT",
+                'header'=>  "Accept-language: en\r\n" . "X-Knack-Application-Id:" . KNACK_ID . "\r\n" . "X-Knack-REST-API-KEY:" . KNACK_KEY . "\r\n" . "Content-Type:application/json\r\n"
+    ));
+    
     public static function getID($table, $id, $code=NULL){
         $apiUrl = KNACK_URL . "objects/" . $table . "/records";
 
@@ -150,6 +156,23 @@ class Knack {
             return $find->records;
         }
         return false;
+    }
+    
+    public static function updateApproval($id,$name) {
+        $apiUrl = KNACK_URL . "objects/" . T_ESTIMATES . "/records/" . $id;
+        
+        $body = json_encode(array( 'field_79' => 'Approved', 'field_156' => $name));
+        
+        $context = self::$context_update;
+        
+        if ($context['http']) {
+            $context['http']['content'] = $body;
+        } else {
+            $context['https']['content'] = $body;
+        }
+        
+        return file_get_contents($apiUrl, false, stream_context_create($context));
+        
     }
 
    

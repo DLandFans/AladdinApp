@@ -11,9 +11,26 @@ class Display {
         
         $html .='
     <body>
+        <script type="text/javascript" src="js/ar-estimate-approve.js"></script>
         <div id="instructions" class="screen">
             Printing instructions:  Aladdin Estimates are set up to print on 8.5" x 11" paper.<br />
-            <input type="button" onClick="window.print()" value="Print This Estimate" />
+            <input type="button" onClick="window.print()" value="Print This Estimate" /><br />
+            <br />';
+        
+        if ($estimate->status == 'Active') {
+            $html .= '
+                
+            <div id="approveForm">
+                Approver Name: <input type="text" name="approvedName" /><br />
+                I authorize this estimate: <input type="checkbox" name="approvedCheck" /><br />
+                <input class="ttp_hide" type="hidden" value="' . $estimate->id . '" name="estId" />
+                <button id="approve_btn" onclick="makeApproval()" type="button">Approve This Estimate</button><br />
+                <div id="approve_status"></div>
+            </div>';
+        }
+ 
+        $html .= '
+        
         </div>
         <div class="print"></div>
         <div id="page">';
@@ -378,6 +395,7 @@ class Display {
                 <link rel="stylesheet" type="text/css" href="' . BASE_URL . 'css/ar-style.css" />
                 <link rel="stylesheet" type="text/css" media="print" href="' . BASE_URL . 'css/ar-style-print.css" />
                 <link rel="stylesheet" type="text/css" media="screen" href="' . BASE_URL . 'css/ar-style-screen.css" />
+                <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
             </head>
 
                ';
