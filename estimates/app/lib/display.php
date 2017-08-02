@@ -4,6 +4,10 @@ class Display {
     
     public static function estimate(EstimateView $estimate) {
         
+//        echo "<pre>";
+//        var_dump($estimate);
+//        exit;
+        
         //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
         $html = '<!DOCTYPE html>';
 
@@ -21,7 +25,7 @@ class Display {
             </div>
         ';
         
-        if ($estimate->status == 'Active') {
+        if (($estimate->status == 'Active') || ($estimate->status == 'Pending')) {
             $html .= '
             <div class="clear"></div>
             <div id="approveForm">
@@ -343,8 +347,14 @@ class Display {
                     $inner_html .= '
                             <div class="ref-image">
                                 <img src="' . $image->imageUrl_1280 . '" />
-                                <div class="img-desc">' . $image->description . '</div>
-                                <div class="img-class">' . $labels[$image->classCode] . '</div>
+                                <div class="img-desc">' . $image->description . '</div>';
+                    
+                    if($image->classification != 'General') {
+                        $inner_html .= '<div class="img-class">' . $image->classification . '</div>';
+                    }
+                    
+                    $inner_html .= '
+                                
                             </div>
                     ';      
                 }    

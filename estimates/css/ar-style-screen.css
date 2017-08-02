@@ -153,6 +153,10 @@ button:hover {
     color: #861B2F;
 }
 
+#instructions .buttons img {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 650px) {
 
     
