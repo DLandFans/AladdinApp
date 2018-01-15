@@ -4,9 +4,9 @@ class Display {
     
     public static function estimate(EstimateView $estimate) {
         
-//        echo "<pre>";
-//        var_dump($estimate);
-//        exit;
+        echo "<pre>";
+        var_dump($estimate);
+        exit;
         
         //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
         $html = '<!DOCTYPE html>';

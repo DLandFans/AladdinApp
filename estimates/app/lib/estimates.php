@@ -18,44 +18,64 @@ abstract class Estimate {
     public $roofType;
     public $roofTypeId;
     public $roofAge;
-    public $overallNote;
-    public $estimatedCost;
+    public $overviewNote;
     public $estimator;
     public $dateEstimated;
     public $estimatorId;
     public $dateCreated;
 
+    //Depreated V1
+//    public $estimatedCost;
+
+    public $repairCost;
+    public $repairNote;
+    public $reroofCost;
+    public $reroofNote;
+    
     public $contacts;
     
-    public $generalCondition;
-    public $generalConditionChecklist;
-    public $generalConditionDeficiency;
-    public $generalConditionLabel;
-    public $generalConditionNotes;
+//    public $generalCondition;
+//    public $generalConditionChecklist;
+//    public $generalConditionDeficiency;
+//    public $generalConditionLabel;
+//    public $generalConditionNotes;
     
-    public $surfaceCondition;
-    public $surfaceConditionChecklist;
-    public $surfaceConditionDeficiency;
-    public $surfaceConditionLabel;
-    public $surfaceConditionNotes;
+//    public $surfaceCondition;
+//    public $surfaceConditionChecklist;
+//    public $surfaceConditionDeficiency;
+//    public $surfaceConditionLabel;
+//    public $surfaceConditionNotes;
     
-    public $roofingFeature;
-    public $roofingFeatureChecklist;
-    public $roofingFeatureDeficiency;
-    public $roofingFeatureLabel;
-    public $roofingFeatureNotes;
+//    public $roofingFeature;
+//    public $roofingFeatureChecklist;
+//    public $roofingFeatureDeficiency;
+//    public $roofingFeatureLabel;
+//    public $roofingFeatureNotes;
     
-    public $exteriorSurface;
-    public $exteriorSurfaceChecklist;
-    public $exteriorSurfaceDeficiency;
-    public $exteriorSurfaceLabel;
-    public $exteriorSurfaceNotes;
+//    public $exteriorSurface;
+//    public $exteriorSurfaceChecklist;
+//    public $exteriorSurfaceDeficiency;
+//    public $exteriorSurfaceLabel;
+//    public $exteriorSurfaceNotes;
     
-    public $interiorCondition;
-    public $interiorConditionChecklist;
-    public $interiorDeficiency;
-    public $interiorConditionLabel;
-    public $interiorConditionNotes;
+//    public $interiorCondition;
+//    public $interiorConditionChecklist;
+//    public $interiorDeficiency;
+//    public $interiorConditionLabel;
+//    public $interiorConditionNotes;
+    
+    public $generalConditionNote;
+    public $exteriorSurfaceNote;
+    public $roofingFeatureNote;
+    public $interiorFeatureNote;
+
+    
+    public $showRepair;
+    public $showReroof;
+    public $showGeneral;
+    public $showExterior;
+    public $showRoofing;
+    public $showInterior;
     
     public $internalCount;
     public $internalId;
@@ -80,164 +100,184 @@ abstract class Estimate {
         $this->roofType = $estimate->field_34_raw[0]->identifier;
         $this->roofTypeId = $estimate->field_34_raw[0]->id;
         $this->roofAge = $estimate->field_35_raw;
-        $this->estimatedCost = $estimate->field_87_raw;
         $this->estimator = $estimate->field_41_raw[0]->identifier;
         $this->estimatorId = $estimate->field_41_raw[0]->id;
 
-        $this->generalNotes = $estimate->field_88_raw;
-        $this->generalImageLabel['general'] = 'General';
+        //Deprecated V1
+//        $this->estimatedCost = $estimate->field_87_raw;
+
+        $this->repairCost = $estimate->field_87_raw;
+        $this->repairNote = $estimate->field_163_raw;
+        $this->reroofCost = $estimate->field_158_raw;
+        $this->reroofNote = $estimate->field_159_raw;
+        
+        $this->overviewNote = $estimate->field_88_raw;  //Overall Notes
+ 
+//        $this->generalImageLabel['general'] = 'General';
 
         
-        $this->generalConditionDeficiency['debris'] = $estimate->field_42_raw;
-        $this->generalConditionDeficiency['drainage'] = $estimate->field_43_raw;
-        $this->generalConditionDeficiency['structural'] = $estimate->field_48_raw;
-        $this->generalConditionDeficiency['physical'] = $estimate->field_49_raw;
-        $this->generalConditionDeficiency['alterations'] = $estimate->field_50_raw;
+//        $this->generalConditionDeficiency['debris'] = $estimate->field_42_raw;
+//        $this->generalConditionDeficiency['drainage'] = $estimate->field_43_raw;
+//        $this->generalConditionDeficiency['structural'] = $estimate->field_48_raw;
+//        $this->generalConditionDeficiency['physical'] = $estimate->field_49_raw;
+//        $this->generalConditionDeficiency['alterations'] = $estimate->field_50_raw;
 
-        $this->generalConditionChecklist['debris'] = $estimate->field_115_raw;
-        $this->generalConditionChecklist['drainage'] = $estimate->field_116_raw;
-        $this->generalConditionChecklist['structural'] = $estimate->field_117_raw;
-        $this->generalConditionChecklist['physical'] = $estimate->field_118_raw;
-        $this->generalConditionChecklist['alterations'] = $estimate->field_119_raw;
+//        $this->generalConditionChecklist['debris'] = $estimate->field_115_raw;
+//        $this->generalConditionChecklist['drainage'] = $estimate->field_116_raw;
+//        $this->generalConditionChecklist['structural'] = $estimate->field_117_raw;
+//        $this->generalConditionChecklist['physical'] = $estimate->field_118_raw;
+//        $this->generalConditionChecklist['alterations'] = $estimate->field_119_raw;
 
-        $this->generalConditionLabel['debris'] = 'Debris';
-        $this->generalConditionLabel['drainage'] = 'Drainage';
-        $this->generalConditionLabel['structural'] = 'Structural'; 
-        $this->generalConditionLabel['physical'] = 'Physical Damage';
-        $this->generalConditionLabel['alterations'] = 'Alterations';
+//        $this->generalConditionLabel['debris'] = 'Debris';
+//        $this->generalConditionLabel['drainage'] = 'Drainage';
+//        $this->generalConditionLabel['structural'] = 'Structural'; 
+//        $this->generalConditionLabel['physical'] = 'Physical Damage';
+//        $this->generalConditionLabel['alterations'] = 'Alterations';
 
-        $this->generalCondition['label']  = 'General Condition';
-        $this->generalCondition['note']  = $estimate->field_51_raw;
-        $this->generalCondition['id'] = 'general-conditions';
-
-       
-        $this->surfaceConditionDeficiency['missingMaterial'] = $estimate->field_44_raw;
-        $this->surfaceConditionDeficiency['buckledMaterial'] = $estimate->field_45_raw;
-        $this->surfaceConditionDeficiency['deformedEdges'] = $estimate->field_52_raw;
-        $this->surfaceConditionDeficiency['surfaceStaining'] = $estimate->field_53_raw;
-        $this->surfaceConditionDeficiency['granularLoss'] = $estimate->field_54_raw;
-        $this->surfaceConditionDeficiency['crackedTile'] = $estimate->field_55_raw;
-        $this->surfaceConditionDeficiency['exposedUnderlayment'] = $estimate->field_56_raw;
-        $this->surfaceConditionDeficiency['missingMortar'] = $estimate->field_57_raw;
-        $this->surfaceConditionDeficiency['denting'] = $estimate->field_58_raw;
-        $this->surfaceConditionDeficiency['blistering'] = $estimate->field_59_raw;
-        $this->surfaceConditionDeficiency['ponding'] = $estimate->field_60_raw;
-        $this->surfaceConditionDeficiency['corrosion'] = $estimate->field_61_raw;
-        $this->surfaceConditionDeficiency['missingFasteners'] = $estimate->field_62_raw;
-        $this->surfaceConditionDeficiency['missingCaulking'] = $estimate->field_65_raw;
-        $this->surfaceConditionDeficiency['deteriorationDecking'] = $estimate->field_63_raw;
-        
-        $this->surfaceConditionChecklist['missingMaterial'] = $estimate->field_120_raw;
-        $this->surfaceConditionChecklist['buckledMaterial'] = $estimate->field_121_raw;
-        $this->surfaceConditionChecklist['deformedEdges'] = $estimate->field_122_raw;
-        $this->surfaceConditionChecklist['surfaceStaining'] = $estimate->field_123_raw;
-        $this->surfaceConditionChecklist['granularLoss'] = $estimate->field_124_raw;
-        $this->surfaceConditionChecklist['crackedTile'] = $estimate->field_125_raw;
-        $this->surfaceConditionChecklist['exposedUnderlayment'] = $estimate->field_126_raw;
-        $this->surfaceConditionChecklist['missingMortar'] = $estimate->field_127_raw;
-        $this->surfaceConditionChecklist['denting'] = $estimate->field_128_raw;
-        $this->surfaceConditionChecklist['blistering'] = $estimate->field_129_raw;
-        $this->surfaceConditionChecklist['ponding'] = $estimate->field_130_raw;
-        $this->surfaceConditionChecklist['corrosion'] = $estimate->field_131_raw;
-        $this->surfaceConditionChecklist['missingFasteners'] = $estimate->field_132_raw;
-        $this->surfaceConditionChecklist['missingCaulking'] = $estimate->field_133_raw;
-        $this->surfaceConditionChecklist['deteriorationDecking'] = $estimate->field_134_raw;
-        
-        $this->surfaceConditionLabel['missingMaterial'] = 'Missing Material';
-        $this->surfaceConditionLabel['buckledMaterial'] = 'Buckled Material';
-        $this->surfaceConditionLabel['deformedEdges'] = 'Deformed Edges';
-        $this->surfaceConditionLabel['surfaceStaining'] = 'Staining';
-        $this->surfaceConditionLabel['granularLoss'] = 'Granular Loss';
-        $this->surfaceConditionLabel['crackedTile'] = 'Cracked Tile';
-        $this->surfaceConditionLabel['exposedUnderlayment'] = 'Exposed Underlayment';
-        $this->surfaceConditionLabel['missingMortar'] = 'Missing/Loss of Mortar';
-        $this->surfaceConditionLabel['denting'] = 'Denting or Impact Marks/Dents';
-        $this->surfaceConditionLabel['blistering'] = 'Blistering';
-        $this->surfaceConditionLabel['ponding'] = 'Ponding';
-        $this->surfaceConditionLabel['corrosion'] = 'Corrosion';
-        $this->surfaceConditionLabel['missingFasteners'] = 'Missing/Exposed Fasteners';
-        $this->surfaceConditionLabel['missingCaulking'] = 'Missing/Damaged Caulking';
-        $this->surfaceConditionLabel['deteriorationDecking'] = 'Deterioration of Decking';
-
-        $this->surfaceCondition['label']  = 'Surface Condition';
-        $this->surfaceCondition['note']  = $estimate->field_64_raw;
-        $this->surfaceCondition['id'] = 'surface-conditions';
+//        $this->generalCondition['label']  = 'General Condition';
+//        $this->generalCondition['note']  = $estimate->field_51_raw;
+//        $this->generalCondition['id'] = 'general-conditions';
+  
+            $this->generalConditionNote = $estimate->field_51_raw;
+           
+//        $this->surfaceConditionDeficiency['missingMaterial'] = $estimate->field_44_raw;
+//        $this->surfaceConditionDeficiency['buckledMaterial'] = $estimate->field_45_raw;
+//        $this->surfaceConditionDeficiency['deformedEdges'] = $estimate->field_52_raw;
+//        $this->surfaceConditionDeficiency['surfaceStaining'] = $estimate->field_53_raw;
+//        $this->surfaceConditionDeficiency['granularLoss'] = $estimate->field_54_raw;
+//        $this->surfaceConditionDeficiency['crackedTile'] = $estimate->field_55_raw;
+//        $this->surfaceConditionDeficiency['exposedUnderlayment'] = $estimate->field_56_raw;
+//        $this->surfaceConditionDeficiency['missingMortar'] = $estimate->field_57_raw;
+//        $this->surfaceConditionDeficiency['denting'] = $estimate->field_58_raw;
+//        $this->surfaceConditionDeficiency['blistering'] = $estimate->field_59_raw;
+//        $this->surfaceConditionDeficiency['ponding'] = $estimate->field_60_raw;
+//        $this->surfaceConditionDeficiency['corrosion'] = $estimate->field_61_raw;
+//        $this->surfaceConditionDeficiency['missingFasteners'] = $estimate->field_62_raw;
+//        $this->surfaceConditionDeficiency['missingCaulking'] = $estimate->field_65_raw;
+//        $this->surfaceConditionDeficiency['deteriorationDecking'] = $estimate->field_63_raw;
+//        
+//        $this->surfaceConditionChecklist['missingMaterial'] = $estimate->field_120_raw;
+//        $this->surfaceConditionChecklist['buckledMaterial'] = $estimate->field_121_raw;
+//        $this->surfaceConditionChecklist['deformedEdges'] = $estimate->field_122_raw;
+//        $this->surfaceConditionChecklist['surfaceStaining'] = $estimate->field_123_raw;
+//        $this->surfaceConditionChecklist['granularLoss'] = $estimate->field_124_raw;
+//        $this->surfaceConditionChecklist['crackedTile'] = $estimate->field_125_raw;
+//        $this->surfaceConditionChecklist['exposedUnderlayment'] = $estimate->field_126_raw;
+//        $this->surfaceConditionChecklist['missingMortar'] = $estimate->field_127_raw;
+//        $this->surfaceConditionChecklist['denting'] = $estimate->field_128_raw;
+//        $this->surfaceConditionChecklist['blistering'] = $estimate->field_129_raw;
+//        $this->surfaceConditionChecklist['ponding'] = $estimate->field_130_raw;
+//        $this->surfaceConditionChecklist['corrosion'] = $estimate->field_131_raw;
+//        $this->surfaceConditionChecklist['missingFasteners'] = $estimate->field_132_raw;
+//        $this->surfaceConditionChecklist['missingCaulking'] = $estimate->field_133_raw;
+//        $this->surfaceConditionChecklist['deteriorationDecking'] = $estimate->field_134_raw;
+//        
+//        $this->surfaceConditionLabel['missingMaterial'] = 'Missing Material';
+//        $this->surfaceConditionLabel['buckledMaterial'] = 'Buckled Material';
+//        $this->surfaceConditionLabel['deformedEdges'] = 'Deformed Edges';
+//        $this->surfaceConditionLabel['surfaceStaining'] = 'Staining';
+//        $this->surfaceConditionLabel['granularLoss'] = 'Granular Loss';
+//        $this->surfaceConditionLabel['crackedTile'] = 'Cracked Tile';
+//        $this->surfaceConditionLabel['exposedUnderlayment'] = 'Exposed Underlayment';
+//        $this->surfaceConditionLabel['missingMortar'] = 'Missing/Loss of Mortar';
+//        $this->surfaceConditionLabel['denting'] = 'Denting or Impact Marks/Dents';
+//        $this->surfaceConditionLabel['blistering'] = 'Blistering';
+//        $this->surfaceConditionLabel['ponding'] = 'Ponding';
+//        $this->surfaceConditionLabel['corrosion'] = 'Corrosion';
+//        $this->surfaceConditionLabel['missingFasteners'] = 'Missing/Exposed Fasteners';
+//        $this->surfaceConditionLabel['missingCaulking'] = 'Missing/Damaged Caulking';
+//        $this->surfaceConditionLabel['deteriorationDecking'] = 'Deterioration of Decking';
 
         
-        $this->roofingFeatureDeficiency['fascia'] = $estimate->field_46_raw;
-        $this->roofingFeatureDeficiency['soffit'] = $estimate->field_47_raw;
-        $this->roofingFeatureDeficiency['flashing'] = $estimate->field_66_raw;
-        $this->roofingFeatureDeficiency['gutters'] = $estimate->field_67_raw;
-        $this->roofingFeatureDeficiency['chimney'] = $estimate->field_68_raw;
-        $this->roofingFeatureDeficiency['skylights'] = $estimate->field_69_raw;
-        $this->roofingFeatureDeficiency['vents'] = $estimate->field_70_raw;
-        $this->roofingFeatureDeficiency['jacks'] = $estimate->field_71_raw;
-        $this->roofingFeatureDeficiency['satellite'] = $estimate->field_72_raw;
-        $this->roofingFeatureDeficiency['solarPanels'] = $estimate->field_73_raw;
-        $this->roofingFeatureDeficiency['valley'] = $estimate->field_74_raw;
-        $this->roofingFeatureDeficiency['crickets'] = $estimate->field_75_raw;
+        //This is now called Exterior Surfaces and is a combination of Surface Conditions & Exterior Surfaces from V1
+        
+//        $this->surfaceCondition['label']  = 'Exterior Surfaces';
+//        $this->surfaceCondition['note']  = $estimate->field_64_raw;
+//        $this->surfaceCondition['id'] = 'surface-conditions';
 
-        $this->roofingFeatureChecklist['fascia'] = $estimate->field_135_raw;
-        $this->roofingFeatureChecklist['soffit'] = $estimate->field_136_raw;
-        $this->roofingFeatureChecklist['flashing'] = $estimate->field_137_raw;
-        $this->roofingFeatureChecklist['gutters'] = $estimate->field_138_raw;
-        $this->roofingFeatureChecklist['chimney'] = $estimate->field_139_raw;
-        $this->roofingFeatureChecklist['skylights'] = $estimate->field_140_raw;
-        $this->roofingFeatureChecklist['vents'] = $estimate->field_141_raw;
-        $this->roofingFeatureChecklist['jacks'] = $estimate->field_142_raw;
-        $this->roofingFeatureChecklist['satellite'] = $estimate->field_143_raw;
-        $this->roofingFeatureChecklist['solarPanels'] = $estimate->field_144_raw;
-        $this->roofingFeatureChecklist['valley'] = $estimate->field_145_raw;
-        $this->roofingFeatureChecklist['crickets'] = $estimate->field_146_raw;
-
-        $this->roofingFeatureLabel['fascia'] = 'Fascia';
-        $this->roofingFeatureLabel['soffit'] = 'Soffit';
-        $this->roofingFeatureLabel['flashing'] = 'Flashing';
-        $this->roofingFeatureLabel['gutters'] = 'Gutters';
-        $this->roofingFeatureLabel['chimney'] = 'Chimney';
-        $this->roofingFeatureLabel['skylights'] = 'Skylights';
-        $this->roofingFeatureLabel['vents'] = 'Vents';
-        $this->roofingFeatureLabel['jacks'] = 'Jacks';
-        $this->roofingFeatureLabel['satellite'] = 'Satellite TV';
-        $this->roofingFeatureLabel['solarPanels'] = 'Solar Panels';
-        $this->roofingFeatureLabel['valley'] = 'Valley';
-        $this->roofingFeatureLabel['crickets'] = 'Crickets';
-
-        $this->roofingFeature['label']  = 'Roofing Feature';
-        $this->roofingFeature['note']  = $estimate->field_76_raw;
-        $this->roofingFeature['id'] = 'roofing-features';
+        $this->exteriorSurfaceNote = $estimate->field_64_raw;
 
         
-        $this->exteriorSurfaceDeficiency['finish'] = $estimate->field_80_raw;
-        $this->exteriorSurfaceDeficiency['surface'] = $estimate->field_81_raw;
+//        $this->roofingFeatureDeficiency['fascia'] = $estimate->field_46_raw;
+//        $this->roofingFeatureDeficiency['soffit'] = $estimate->field_47_raw;
+//        $this->roofingFeatureDeficiency['flashing'] = $estimate->field_66_raw;
+//        $this->roofingFeatureDeficiency['gutters'] = $estimate->field_67_raw;
+//        $this->roofingFeatureDeficiency['chimney'] = $estimate->field_68_raw;
+//        $this->roofingFeatureDeficiency['skylights'] = $estimate->field_69_raw;
+//        $this->roofingFeatureDeficiency['vents'] = $estimate->field_70_raw;
+//        $this->roofingFeatureDeficiency['jacks'] = $estimate->field_71_raw;
+//        $this->roofingFeatureDeficiency['satellite'] = $estimate->field_72_raw;
+//        $this->roofingFeatureDeficiency['solarPanels'] = $estimate->field_73_raw;
+//        $this->roofingFeatureDeficiency['valley'] = $estimate->field_74_raw;
+//        $this->roofingFeatureDeficiency['crickets'] = $estimate->field_75_raw;
+//
+//        $this->roofingFeatureChecklist['fascia'] = $estimate->field_135_raw;
+//        $this->roofingFeatureChecklist['soffit'] = $estimate->field_136_raw;
+//        $this->roofingFeatureChecklist['flashing'] = $estimate->field_137_raw;
+//        $this->roofingFeatureChecklist['gutters'] = $estimate->field_138_raw;
+//        $this->roofingFeatureChecklist['chimney'] = $estimate->field_139_raw;
+//        $this->roofingFeatureChecklist['skylights'] = $estimate->field_140_raw;
+//        $this->roofingFeatureChecklist['vents'] = $estimate->field_141_raw;
+//        $this->roofingFeatureChecklist['jacks'] = $estimate->field_142_raw;
+//        $this->roofingFeatureChecklist['satellite'] = $estimate->field_143_raw;
+//        $this->roofingFeatureChecklist['solarPanels'] = $estimate->field_144_raw;
+//        $this->roofingFeatureChecklist['valley'] = $estimate->field_145_raw;
+//        $this->roofingFeatureChecklist['crickets'] = $estimate->field_146_raw;
+//
+//        $this->roofingFeatureLabel['fascia'] = 'Fascia';
+//        $this->roofingFeatureLabel['soffit'] = 'Soffit';
+//        $this->roofingFeatureLabel['flashing'] = 'Flashing';
+//        $this->roofingFeatureLabel['gutters'] = 'Gutters';
+//        $this->roofingFeatureLabel['chimney'] = 'Chimney';
+//        $this->roofingFeatureLabel['skylights'] = 'Skylights';
+//        $this->roofingFeatureLabel['vents'] = 'Vents';
+//        $this->roofingFeatureLabel['jacks'] = 'Jacks';
+//        $this->roofingFeatureLabel['satellite'] = 'Satellite TV';
+//        $this->roofingFeatureLabel['solarPanels'] = 'Solar Panels';
+//        $this->roofingFeatureLabel['valley'] = 'Valley';
+//        $this->roofingFeatureLabel['crickets'] = 'Crickets';
 
-        $this->exteriorSurfaceChecklist['finish'] = $estimate->field_147_raw;
-        $this->exteriorSurfaceChecklist['surface'] = $estimate->field_148_raw;
+//        $this->roofingFeature['label']  = 'Roofing Feature';
+//        $this->roofingFeature['note']  = $estimate->field_76_raw;
+//        $this->roofingFeature['id'] = 'roofing-features';
 
-        $this->exteriorSurfaceLabel['finish'] = 'Finish';
-        $this->exteriorSurfaceLabel['surface'] = 'Surface';
-
-        $this->exteriorSurface['label']  = 'Exterior Surface';
-        $this->exteriorSurface['note']  = $estimate->field_82_raw;
-        $this->exteriorSurface['id'] = 'exterior-surfaces';
+        $this->roofingFeatureNote = $estimate->field_76_raw;
 
         
-        $this->interiorConditionDeficiency['cracks'] = $estimate->field_83_raw;
-        $this->interiorConditionDeficiency['leaks'] = $estimate->field_84_raw;
-        $this->interiorConditionDeficiency['interiorStaining'] = $estimate->field_85_raw;
+//        $this->exteriorSurfaceDeficiency['finish'] = $estimate->field_80_raw;
+//        $this->exteriorSurfaceDeficiency['surface'] = $estimate->field_81_raw;
+//
+//        $this->exteriorSurfaceChecklist['finish'] = $estimate->field_147_raw;
+//        $this->exteriorSurfaceChecklist['surface'] = $estimate->field_148_raw;
+//
+//        $this->exteriorSurfaceLabel['finish'] = 'Finish';
+//        $this->exteriorSurfaceLabel['surface'] = 'Surface';
 
-        $this->interiorConditionChecklist['cracks'] = $estimate->field_149_raw;
-        $this->interiorConditionChecklist['leaks'] = $estimate->field_150_raw;
-        $this->interiorConditionChecklist['interiorStaining'] = $estimate->field_151_raw;
+        //Old Exterior Surfaces from V1, being deprecated
+        
+//        $this->exteriorSurface['label']  = 'Exterior Surface (OLD V1)';
+//        $this->exteriorSurface['note']  = $estimate->field_82_raw;
+//        $this->exteriorSurface['id'] = 'exterior-surfaces';
 
-        $this->interiorConditionLabel['cracks'] = 'Cracks';
-        $this->interiorConditionLabel['leaks'] = 'Leaks';
-        $this->interiorConditionLabel['interiorStaining'] = 'Staining';
+        
+//        $this->interiorConditionDeficiency['cracks'] = $estimate->field_83_raw;
+//        $this->interiorConditionDeficiency['leaks'] = $estimate->field_84_raw;
+//        $this->interiorConditionDeficiency['interiorStaining'] = $estimate->field_85_raw;
+//
+//        $this->interiorConditionChecklist['cracks'] = $estimate->field_149_raw;
+//        $this->interiorConditionChecklist['leaks'] = $estimate->field_150_raw;
+//        $this->interiorConditionChecklist['interiorStaining'] = $estimate->field_151_raw;
+//
+//        $this->interiorConditionLabel['cracks'] = 'Cracks';
+//        $this->interiorConditionLabel['leaks'] = 'Leaks';
+//        $this->interiorConditionLabel['interiorStaining'] = 'Staining';
 
-        $this->interiorCondition['label']  = 'Interior Condition';
-        $this->interiorCondition['note']  = $estimate->field_86_raw;
-        $this->interiorCondition['id'] = 'interior-conditions';
-       
+//        $this->interiorCondition['label']  = 'Interior Condition';
+//        $this->interiorCondition['note']  = $estimate->field_86_raw;
+//        $this->interiorCondition['id'] = 'interior-conditions';
+  
+        $this->interiorFeatureNote = $estimate->field_86_raw;
+        
         $this->internalCount = $estimate->field_99_raw;
         $this->dateCreated['full'] = $estimate->field_105;
         $this->dateCreated['date'] = $estimate->field_105_raw->date;
@@ -250,7 +290,14 @@ abstract class Estimate {
         $this->dateEstimated['hour'] = $estimate->field_152_raw->hours;
         $this->dateEstimated['min'] = $estimate->field_152_raw->minutes;
         $this->dateEstimated['ampm'] = $estimate->field_152_raw->am_pm;
-
+        
+        
+        $this->showRepair = $estimate->field_164_raw;
+        $this->showReroof = $estimate->field_165_raw;
+        $this->showGeneral = $estimate->field_166_raw;
+        $this->showExterior = $estimate->field_167_raw;
+        $this->showRoofing = $estimate->field_168_raw;
+        $this->showInterior = $estimate->field_169_raw;
         
         $this->internalId = $estimate->field_110_raw;
         $this->validationCode = $estimate->field_109_raw;
