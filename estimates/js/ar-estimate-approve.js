@@ -27,6 +27,7 @@ function makeApproval() {
                         $('#approveForm').css('padding-top','15px');
                         $('#approveForm').html('Job: ' + response.field_1 + ' has been approved by ' + response.field_156);
                     } else {
+                        console.log(response);
                         $('#approve_status').css('color','#400');
                         if(response[0].FATAL_ERROR) {
                             $('#approve_status').html('ERROR ' + response[0].FATAL_ERROR);

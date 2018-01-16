@@ -16,6 +16,7 @@ class Display {
         $html .='
     <body>
         <script type="text/javascript" src="js/ar-estimate-approve.js"></script>
+        <div id="debug"></div>
         <div id="instructions" class="screen">
             <div id="printForm">
                 <div class="info">
