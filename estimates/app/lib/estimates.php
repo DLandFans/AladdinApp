@@ -211,7 +211,7 @@ class EstimateView extends Estimate {
         if(!$estimate = parent::__construct($id,$code)) { return false; }
         
         // Get Images (field_40)
-        if(isset($estimate->field_40_raw)){
+        if(isset($estimate->field_40_raw) && count($estimate->field_40_raw) > 0 ){
             foreach(Knack::getRecordsByIds($estimate->field_40_raw,T_IMAGES) as $image) {
                 $this->images[] = new Image($image);
             }

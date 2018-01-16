@@ -54,6 +54,12 @@ section .content p {
     font-size:1em;
 }
 
+.sitenote .data p{
+    font-size:1em;
+    line-height: 1.3em;
+}
+
+
 .img-desc {
     font-size: .8em;
 }

@@ -132,25 +132,21 @@ class Display {
                     <img  class="fh40" src="' . BASE_URL . 'images/bgcolor3.png">
                     <div class="title">Project Information</div>
                 </div>
-                <div class="content">
+                <div class="content">';
+        
+        if (!empty($estimate->overviewNote)) {
+            $html .= '
                     <div class="notes">
                         <div class="label">Overiew Notes</div>
-                        <div class="data">';
-
-        if (!empty($estimate->overviewNote)) {
-            $html .= $estimate->overviewNote;
-        } else {
-            $html .= 'No Overview notes for this job.';
+                        <div class="data">' . $estimate->overviewNote . '</div>
+                    </div>';
         }
-        
-        $html .= '</div></div>';
         
 //       $html .= self::buildImageDisplay($estimate->images, $estimate->generalImageLabel);
         $html .= self::buildImageDisplay($estimate, 'overview');
 
         if ($estimate->showRepair) {
             $html .= '
-
                     <div class="estimate">
                         <div class="cost"><div class="label important">Repair Cost</div><div class="data important">$' . $estimate->repairCost . '</div></div>
                         <div class="data">' . $estimate->repairNote . '</div>
@@ -164,6 +160,15 @@ class Display {
                         <div class="data">' . $estimate->reroofNote . '</div>
                     </div>';
         }
+        
+        $html .= '
+                    <div class="sitenote">
+                        <div class="label">Site Work</div>
+                        <div class="data">
+                            <p>Work performed will be accomplished by trained and knowledgeable technicians in a professional manner. It will include, but not limited to furnishing of all labor, equipment and materials necessary for the complete installation of the roofing system. We will remove existing roofing system to decking material, clean the site and dispose of all debris properly. We will inspect decking and facia for deterioration, and replace if necessary at $50 per sheet. Please be aware of noise and other construction activity during roofing, keeping children, pets, and any outdoor home decor away from work area. Remove any important items on shelves or walls during roofing.  Roofing activity my cause movement that would cause these items to be damaged. Please provide us access to the driveway for material loading and clean up. Please make all payments to Aladdin Roofing.</p>
+                        </div>
+                    </div>';
+
  
         $html .= '
                 </div>

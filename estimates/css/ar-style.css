@@ -142,9 +142,19 @@ section .title {
     border-bottom: 1px solid #861B2F;
 }
 
-
 .inspection .data {
     font-size: 15px;
+    font-weight: normal;
+}
+
+.sitenote .label {
+    width: 100%;
+    padding-bottom: 0px;
+    border-bottom: 1px solid #861B2F;
+}
+
+.sitenote .data {
+    font-size: 12px;
     font-weight: normal;
 }
 
