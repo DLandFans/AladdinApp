@@ -97,6 +97,13 @@ section .title {
     padding-bottom: 15px;
 }
 
+.estimate {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    padding-bottom: 15px;
+}
+
 
 .job-information {
     vertical-align: top;
@@ -126,6 +133,27 @@ section .title {
     padding-bottom: 20px;
 
 }
+
+.estimate .data {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.inspection .label {
+    width: 100%;
+    padding-bottom: 0px;
+    border-bottom: 1px solid #861B2F;
+    font-style: italic;
+}
+
+
+.inspection .data {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+
 
 .ref-image {
     width: 48%; 

@@ -5,13 +5,6 @@ class Image {
     public $id;
     public $description;
     
-    
-    //V1 Deprecated
-//    public $classification;
-//    public $classId;
-////    public $classCode;
-    
-    
     public $imageName;
     public $imageUrl;
     public $imageUrl_480;
@@ -28,18 +21,12 @@ class Image {
         $this->id = $image->id;
         $this->description = $image->field_36_raw;
         
-        //V1 deprecated
-//        $this->classification = $image->field_39_raw[0]->identifier;
-//        $this->classId = $image->field_39_raw[0]->id;
-//        //$this->classCode = Knack::getClassificationCode($this->classification);
-        
         $this->imageName = $image->field_37_raw->filename;
         $this->imageUrl = $image->field_37_raw->url;
 
         $this->imageUrl_480 = $this->stripAmazonImage($image->{'field_37:thumb_3'});
         $this->imageUrl_1280 = $this->stripAmazonImage($image->{'field_37:thumb_5'});
 
-        //V2 Inspection Category
         $this->category = $image->field_161_raw[0]->identifier;
         $this->catId = $image->field_161_raw[0]->id;
         
@@ -50,8 +37,5 @@ class Image {
         $value = substr($value,0,strlen($value)-4);
         return $value;
     }
-    
-    
-    
     
 }

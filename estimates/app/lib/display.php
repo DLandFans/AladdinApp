@@ -4,9 +4,9 @@ class Display {
     
     public static function estimate(EstimateView $estimate) {
         
-        echo "<pre>";
-        var_dump($estimate);
-        exit;
+//        echo "<pre>";
+//        var_dump($estimate);
+//        exit;
         
         //<span class="desktoponly">Estimate for </span>' . $estimate->jobName . '
         $html = '<!DOCTYPE html>';
@@ -49,7 +49,9 @@ class Display {
         <div id="page">';
 
         $html .= self::builderHeader('Estimate');
-        
+
+
+        // Job and Roof Information
         $html .= '
             <section id="job-details"> 
                 <div class="bgfilled fh40">
@@ -74,27 +76,14 @@ class Display {
                         <div><div class="label">Roof Type</div><div class="data">' . $estimate->roofType . '</div></div>
                         <div><div class="label">Roof Age</div><div class="data">' . $estimate->roofAge . ' Years</div></div>
                         <div><div class="label"># of Stories</div><div class="data">' . $estimate->stories . '</div></div>
-                        <div class="cost"><div class="label important">Cost</div><div class="data important">$' . $estimate->estimatedCost . '</div></div>
+                        <!--<div class="cost"><div class="label important">Cost</div><div class="data important">$' . $estimate->estimatedCost . '</div></div>-->
                     </div>
-                    <div class="notes">
-                        <div class="label">General Notes</div>
-                        <div class="data">';
-
-        if (!empty($estimate->generalNotes)) {
-            $html .= $estimate->generalNotes;
-        } else {
-            $html .= 'No General notes for this job.';
-        }
-        
-        $html .= '</div></div>';
-        
-        $html .= self::buildImageDisplay($estimate->images, $estimate->generalImageLabel);
-        
-        $html .= '
-                    
                 </div>
-            </section>
+            </section>';
 
+        
+                //Contacts
+        $html .= '
             <section id="contacts">
                 <div class="bgfilled fh40">
                     <img  class="fh40" src="images/bgcolor3.png">
@@ -123,8 +112,6 @@ class Display {
 
                 if (isset($contact->phoneAlt) && $contact->phoneAlt != NULL && $contact->phoneAlt !="" ) { $html .= '<div><div class="label">Additional Info</div><div class="data">' .$contact->notes . '</div></div>'; }
 
-                        
-
                 $html .= '</div>';
             }
             
@@ -136,19 +123,122 @@ class Display {
         
         $html .= '
             </section>';
+        
+        //Project Information 
+        $html .= '
+            <section id="job-details"> 
+                <div class="bgfilled fh40">
+                    <img  class="fh40" src="' . BASE_URL . 'images/bgcolor3.png">
+                    <div class="title">Project Information</div>
+                </div>
+                <div class="content">
+                    <div class="notes">
+                        <div class="label">Overiew Notes</div>
+                        <div class="data">';
 
-        foreach($estimate->sections as $sectionName) {
-            
-            $section = array( 
-                'name' => $estimate->{$sectionName},
-                'labels' => $estimate->{$sectionName . 'Label'},
-                'checklist' => $estimate->{$sectionName . 'Checklist'},
-                'deficiencies' => $estimate->{$sectionName . 'Deficiency'}
-            );
-            
-            if($val = self::buildSection($section, $estimate->images)) { $html .= $val; }
+        if (!empty($estimate->overviewNote)) {
+            $html .= $estimate->overviewNote;
+        } else {
+            $html .= 'No Overview notes for this job.';
         }
+        
+        $html .= '</div></div>';
+        
+//       $html .= self::buildImageDisplay($estimate->images, $estimate->generalImageLabel);
+        $html .= self::buildImageDisplay($estimate, 'overview');
 
+        if ($estimate->showRepair) {
+            $html .= '
+
+                    <div class="estimate">
+                        <div class="cost"><div class="label important">Repair Cost</div><div class="data important">$' . $estimate->repairCost . '</div></div>
+                        <div class="data">' . $estimate->repairNote . '</div>
+                    </div>';
+        }
+    
+        if ($estimate->showReroof) {
+           $html .= '
+                    <div class="estimate">
+                        <div class="cost"><div class="label important">Re-Roof Cost</div><div class="data important">$' . $estimate->reroofCost . '</div></div>
+                        <div class="data">' . $estimate->reroofNote . '</div>
+                    </div>';
+        }
+ 
+        $html .= '
+                </div>
+            </section>';
+        
+        
+        
+        
+        
+        foreach($estimate->sections as $sectionName=>$sectionInfo) {
+            
+//            $section = array( 
+//                'name' => $estimate->{$sectionName},
+//                'labels' => $estimate->{$sectionName . 'Label'},
+//                'checklist' => $estimate->{$sectionName . 'Checklist'},
+//                'deficiencies' => $estimate->{$sectionName . 'Deficiency'}
+//            );
+            
+            if ($skip_first) {
+                if ($sectionInfo[2]) {
+                    $html .= '
+                        
+            <section id="' . $sectionName . '">
+                <div class="bgfilled fh40">
+                    <img  class="fh40" src="images/bgcolor3.png">
+                    <div class="title">' . $sectionInfo[1] . '</div>
+                </div>
+                <div class="content">
+                ';
+
+                    if (!empty($sectionInfo[3])) {
+                        $html .= '
+                    <div class="notes">
+                        <div class="label">Estimator Notes</div>
+                        <div class="data">' . $sectionInfo[3] . '</div>
+                    </div>';
+                    }
+
+                $html .= self::buildImageDisplay($estimate, $sectionName);
+
+                    $html .= '
+                    <div class="inspection">
+                        <div class="label">Inspection Notes</div>
+                        <div class="data">' . $sectionInfo[4] . '</div>
+                    </div>';
+                        
+                
+                    
+                    $html .= '
+                </div>
+            </section>';            
+                    
+                }
+
+
+
+                
+//
+//                 $inner_html_5 = self::buildImageDisplay($images, $section['labels']);
+//                 $inner_html_6 = '
+//                         </div>
+//                     </section>';
+                
+                
+                
+                
+                
+                
+            }
+            $skip_first = true;
+            
+            
+//            if($val = self::buildSection($section, $estimate->images)) { $html .= $val; }
+        }
+        
+        
         
         $html .= '
             
@@ -316,54 +406,98 @@ class Display {
         if($inner_html) { return '<div><div class="inspection-point labels">Inspection Point</div><div class="inspected labels">Checked For:</div><div class="deficiency labels">Deficiency:</div></div>' . $inner_html; }
         return;
     }
-    
-    private static function buildImageDisplay($images,$labels) {
-        
-        $display_test = false;
-        foreach($images as $image) { 
-            foreach($labels as $id=>$label) {
-//                if($image->classCode == $id ){
-                if($image->classification == $label){
-                    $display_test=true;
-                    break;
-                }
-            }
-            if ($display_test) { break; }
-        }
 
+
+    private static function buildImageDisplay($estimate,$imgCat) {
+
+        $images = $estimate->images;
+        $sections = $estimate->sections;
         
-        if($display_test) {
-            
-            $inner_html .= '<div class="references">';
-            $count = 0;
-            foreach($images as $image) {
+//        echo "<pre>";
+//        var_dump($sections);
+//        exit;
+        
+        $inner_html .= '<div class="references">';
+        $count = 0;
+        foreach($images as $image) {
 //                if(array_key_exists($image->classCode, $labels)) {
-                if(in_array($image->classification, $labels)) {
-                    //For odds and evens, works great
-                    if(!($count&1) && $count > 0) {
-                        $inner_html .= '</div><div class="references">';
-                    }
-                    $count++;
-                    $inner_html .= '
-                            <div class="ref-image">
-                                <img src="' . $image->imageUrl_1280 . '" />
-                                <div class="img-desc">' . $image->description . '</div>';
-                    
-                    if($image->classification != 'General') {
-                        $inner_html .= '<div class="img-class">' . $image->classification . '</div>';
-                    }
-                    
-                    $inner_html .= '
-                                
-                            </div>
-                    ';      
-                }    
-            }
-            $inner_html .= '</div>';
+            if ($image->catId == $sections[$imgCat][0]) {
+                //For odds and evens, works great
+                if(!($count&1) && $count > 0) {
+                    $inner_html .= '</div><div class="references">';
+                }
+                $count++;
+                $inner_html .= '
+                        <div class="ref-image">
+                            <img src="' . $image->imageUrl_1280 . '" />
+                            <div class="img-desc">' . $image->description . '</div>
+                        </div>
+                ';      
+            }    
+        }
+        $inner_html .= '</div>';
+        
+        if ($count > 0) {
             return $inner_html;
         }
-        return;
+        
+        return false;
+        
    }
+
+
+
+
+
+
+    
+//    private static function buildImageDisplay($images,$labels) {
+//        
+//        $display_test = false;
+//        foreach($images as $image) { 
+//            foreach($labels as $id=>$label) {
+////                if($image->classCode == $id ){
+//                if($image->classification == $label){
+//                    $display_test=true;
+//                    break;
+//                }
+//            }
+//            if ($display_test) { break; }
+//        }
+//
+//        
+//        if($display_test) {
+//            
+//            $inner_html .= '<div class="references">';
+//            $count = 0;
+//            foreach($images as $image) {
+////                if(array_key_exists($image->classCode, $labels)) {
+//                if(in_array($image->classification, $labels)) {
+//                    //For odds and evens, works great
+//                    if(!($count&1) && $count > 0) {
+//                        $inner_html .= '</div><div class="references">';
+//                    }
+//                    $count++;
+//                    $inner_html .= '
+//                            <div class="ref-image">
+//                                <img src="' . $image->imageUrl_1280 . '" />
+//                                <div class="img-desc">' . $image->description . '</div>';
+//                    
+//                    if($image->classification != 'General') {
+//                        $inner_html .= '<div class="img-class">' . $image->classification . '</div>';
+//                    }
+//                    
+//                    $inner_html .= '
+//                                
+//                            </div>
+//                    ';      
+//                }    
+//            }
+//            $inner_html .= '</div>';
+//            return $inner_html;
+//        }
+//        return;
+//   }
     
    public static function buildSection($section, $images) {
        
@@ -400,7 +534,45 @@ class Display {
         if(empty($inner_html_2) && empty($inner_html_5) && empty($section['name']['note'])) { return; }
         return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
    }
- 
+
+//   public static function buildSection($section, $images) {
+//       
+//       $inner_html_1 = '
+//            <section id="' . $section['name']['id'] . '">
+//                <div class="bgfilled fh40">
+//                    <img  class="fh40" src="images/bgcolor3.png">
+//                    <div class="title">' . $section['name']['label'] . 's</div>
+//                </div>
+//                <div class="content">
+//                    <div class="inspection-list">';
+//        
+//        $inner_html_2 = self::buildChecklist($section['labels'], $section['checklist'], $section['deficiencies']);
+//        $inner_html_3 = '</div>';
+//        $inner_html_4 = '
+//                    <div class="notes">
+//                        <div class="label">' . $section['name']['label'] . ' Notes</div>
+//                        <div class="data">';
+//        
+//        if (!empty($section['name']['note'])) {
+//            $inner_html_4 .= $section['name']['note'];
+//        } else {
+//            $inner_html_4 .= 'No ' . $section['name']['label'] . ' notes for this job.';
+//        }
+//        $inner_html_4 .= '
+//                        </div>
+//                    </div>';
+//
+//        $inner_html_5 = self::buildImageDisplay($images, $section['labels']);
+//        $inner_html_6 = '
+//                </div>
+//            </section>';
+//        
+//        if(empty($inner_html_2) && empty($inner_html_5) && empty($section['name']['note'])) { return; }
+//        return $inner_html_1 . $inner_html_2 . $inner_html_3 . $inner_html_4 . $inner_html_5 . $inner_html_6;
+//   }
+   
+   
+   
    private static function buildHead($title) {
        
        $inner_html = '
