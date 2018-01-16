@@ -34,9 +34,10 @@ class Email {
         $mail = new PHPMailer(); // create a new object
         
         $mail->IsSMTP(); 
-//        $mail->SMTPDebug = 1;
+//        $mail->SMTPDebug = 3;
 
         $mail->SMTPAuth = SMTP_AUTH; 
+        $mail->SMTPSecure = SMTP_SECURE;
         $mail->Host = SMTP_SERVER;
         $mail->Port = SMTP_PORT;
         $mail->Username = SMTP_USER;
@@ -44,6 +45,7 @@ class Email {
         $mail->SetFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
         
         $mail->IsHTML(true);
+        
 
         //Queue Emails and set Aladdin Employees to BCC
         foreach($sendEmailList as $sendto) {
@@ -67,8 +69,12 @@ class Email {
         $mail->Body = $body;
         
         if(!$mail->send()) {
+//            echo "<br><br><pre><br><br>";
 //            echo 'Message could not be sent.';
 //            echo 'Mailer Error: ' . $mail->ErrorInfo;   
+//            
+//            var_dump($mail);
+//            exit;
             return false;
         } 
        
