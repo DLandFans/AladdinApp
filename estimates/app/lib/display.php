@@ -248,7 +248,7 @@ class Display {
             <h3>Legal Disclaimer:</h3>
         </div>
         <div class="content">
-            <p>This inspection report details the condition of the roof and related structure at the time of the inspection. Roofing conditions can change at any time due to weather and other circumstances. The estimated repair costs are contingent upon the roof conditions not changing since the time of the inspection. Therefore the estimate is valid for 60 days from the date of the inspection, provided conditions of the roof and related satructures have not changed since the inspection. If upon initiation of your repair we determine that conditions have changed since the inspection, we will document these changes, notify you of the changes, and request a new approval.</p>            
+            <p>This inspection report details the condition of the roof and related structure at the time of the inspection. Roofing conditions can change at any time due to weather and other circumstances. The estimated repair costs are contingent upon the roof conditions not changing since the time of the inspection. Therefore the estimate is valid for 60 days from the date of the inspection, provided conditions of the roof and related structures have not changed since the inspection. If upon initiation of your repair we determine that conditions have changed since the inspection, we will document these changes, notify you of the changes, and request a new approval.</p>            
         </div>
         </section>
                 ';

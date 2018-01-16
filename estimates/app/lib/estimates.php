@@ -11,7 +11,7 @@ abstract class Estimate {
                 <ul>
                     <li>Presence of Debris</li>
                     <li>Physical Damage to the Overall Roofing System</li>
-                    <li>Structural Integrity of Roofing System/li>
+                    <li>Structural Integrity of Roofing System</li>
                     <li>Integrity of Alterations to the Original Roofing System</li>
                     <li>Evidence or Presence of Drainage Problems</li>
                 </ul>'
@@ -119,6 +119,7 @@ abstract class Estimate {
 //    public function __construct($id) {
     public function __construct($id, $code=NULL) {
 //        $estimate = Knack::getObject(T_ESTIMATES, $id);
+        
         if(!$estimate = Knack::getEstimateByFilter($id,$code)) { return false; }
         
         $this->id = $estimate->id;

@@ -26,7 +26,7 @@ section .bgunfilled h3 {
 }
 
 section .content p {
-    font-size: .8em;
+    font-size: .7em;
 }
 
 
@@ -39,19 +39,23 @@ section .content p {
 }
 
 .important {
-    font-size: 1.3em;
+    font-size: 1.2em;
 }
 
 .notes .data{
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: normal;
-    font-style: italic;
     padding-bottom: 20px;
 }
 
+.estimate .data,
+.inspection .data,
+.inspection .data p{
+    font-size:1em;
+}
+
 .img-desc {
-    font-size: 1.2em;
-    font-style: italic;
+    font-size: .8em;
 }
 
 .img-class {

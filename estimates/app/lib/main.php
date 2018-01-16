@@ -14,8 +14,8 @@ class AladdinRoofingApp {
     
     public function doEstimate()
     {
-//        if(!$id = Knack::getID(T_ESTIMATES, $this->recId)) return false;
-        if(!$estimate = new EstimateView($this->recId)) return false;
+        $estimate = new EstimateView($this->recId);
+        if(!$estimate->id) { return false; }
         return Display::estimate($estimate);
     }
     
@@ -25,8 +25,10 @@ class AladdinRoofingApp {
         //Do GET
         if($this->method == "GET") {
 //            if(!$id = Knack::getID(T_ESTIMATES, $this->recId, $this->recCode)) return false;
-            if(!$estimate = new EstimateMail($this->recId, $this->recCode)) return false;
-           
+//            if(!$estimate = new EstimateMail($this->recId, $this->recCode)) return false;
+  
+            $estimate = new EstimateMail($this->recId, $this->recCode);
+            if(!$estimate->id) { return false; }
             
             //$estimate = new EstimateMail($id);
             $emails = Email::prepareEmails($estimate);
@@ -52,6 +54,7 @@ class AladdinRoofingApp {
         }
         
         $result = Email::sendEmails($sendEmails,$estimateArray);
+        
         return Display::emailSent($result,$estimateArray); 
         
     }

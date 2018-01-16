@@ -5,6 +5,10 @@ if (!include_once("load.php")) die("Initialization not complete!");
 
 $app = new AladdinRoofingApp();
 
+//        echo "<pre>";
+//        var_dump($app);
+//        exit;
+
 if (isset($app->recCode)) {
     $html = $app->doEmail();
 } elseif (isset($app->recId)) {

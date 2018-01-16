@@ -74,8 +74,7 @@ section .bgunfilled h3 {
 
 
 .img-desc {
-    font-size: 18px;
-    font-style: italic;
+    font-size: 13px;
 }
 
 .img-class {
@@ -114,7 +113,6 @@ button:hover {
 }
 
 .emailList .type {
-    font-style: italic;
     display: inline-block;
     width: 40%;
     vertical-align: top;
