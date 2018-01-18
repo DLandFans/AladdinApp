@@ -97,7 +97,6 @@ section .title {
 }
 
 .estimate {
-    width: 49%;
     display: inline-block;
     vertical-align: top;
     padding-bottom: 15px;

@@ -144,10 +144,15 @@ class Display {
         
 //       $html .= self::buildImageDisplay($estimate->images, $estimate->generalImageLabel);
         $html .= self::buildImageDisplay($estimate, 'overview');
+        
+        $divWidth = "98";
+        if ($estimate->showRepair && $estimate->showReroof) {
+            $divWidth = "49";
+        }
 
         if ($estimate->showRepair) {
             $html .= '
-                    <div class="estimate">
+                    <div class="estimate" style="width:' . $divWidth . '%;">
                         <div class="cost"><div class="label important">Repair Cost</div><div class="data important">$' . $estimate->repairCost . '</div></div>
                         <div class="data">' . $estimate->repairNote . '</div>
                     </div>';
@@ -155,7 +160,7 @@ class Display {
     
         if ($estimate->showReroof) {
            $html .= '
-                    <div class="estimate">
+                    <div class="estimate" style="width:' . $divWidth . '%;">
                         <div class="cost"><div class="label important">Re-Roof Cost</div><div class="data important">$' . $estimate->reroofCost . '</div></div>
                         <div class="data">' . $estimate->reroofNote . '</div>
                     </div>';
